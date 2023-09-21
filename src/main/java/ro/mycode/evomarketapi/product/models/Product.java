@@ -6,8 +6,11 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.GenericGenerator;
+import ro.mycode.evomarketapi.orderdetails.models.OrderDetails;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Table(name = "product")
 @Entity(name = "Product")
@@ -28,7 +31,7 @@ public class Product  implements Comparable<Product>{
     @GeneratedValue(generator = "string-sequence-generator")
 
     @Column(name = "id", nullable = false)
-    private Long id;
+    private String id;
 
     @Column(name = "name", nullable = false)
     @Size(min = 3, max = 50, message = "Product name must be between 3 and 50 characters")
@@ -60,7 +63,9 @@ public class Product  implements Comparable<Product>{
 
 
     @Column(name = "created_date", nullable = false)
-    private LocalDateTime created_date;
+    private LocalDateTime createdDate;
+    @OneToMany(mappedBy = "product")
+    private Set<OrderDetails> orderDetailsSet = new HashSet<>();
 
 
     @Override
@@ -72,7 +77,7 @@ public class Product  implements Comparable<Product>{
         text += "Weight : " + this.weight + "\n";
         text += "Description : " + this.description + "\n";
         text += "Category : " + this.category + "\n";
-        text += "Created Date : " + this.created_date + "\n";
+        text += "Created Date : " + this.createdDate + "\n";
         return text;
     }
 

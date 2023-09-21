@@ -4,8 +4,7 @@ package ro.mycode.evomarketapi.orderdetails.models;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.GenericGenerator;
-import ro.mycode.evomarketapi.orders.models.Orders;
+import ro.mycode.evomarketapi.order.models.Order;
 import ro.mycode.evomarketapi.product.models.Product;
 
 @Table(name = "orderdetails")
@@ -18,27 +17,17 @@ import ro.mycode.evomarketapi.product.models.Product;
 @Setter
 public class OrderDetails implements Comparable<OrderDetails>{
 
-//    @Id
-//
-//
-//
-//    @GenericGenerator(
-//            name = "string-sequence-generator", strategy = "ro.mycode.evomarketapi.system.StringSequenceGenerator"
-//    )
-//
-//    @GeneratedValue(generator = "string-sequence-generator")
-//
-//    @Column(name = "id", nullable = false)
-//    private Long id;
     @EmbeddedId
     private OrderDetailsId id;
 
     @ManyToOne
     @MapsId("orderId")
-    private Orders order;
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     @ManyToOne
     @MapsId("productId")
+    @JoinColumn(name = "product_id")
     private Product product;
 
     @Column(name = "quantity", nullable = false)
