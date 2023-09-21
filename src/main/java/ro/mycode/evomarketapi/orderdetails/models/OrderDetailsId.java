@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 
@@ -14,10 +15,10 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Getter
 @Setter
+@SuperBuilder
 public class OrderDetailsId implements Serializable {
-    private Long orderId;
-    private Long productId;
-
+    private String orderId;
+    private String productId;
 }
 
 
