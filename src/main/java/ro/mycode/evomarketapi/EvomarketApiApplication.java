@@ -1,16 +1,25 @@
 package ro.mycode.evomarketapi;
 
+import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import ro.mycode.evomarketapi.order.models.Order;
+import ro.mycode.evomarketapi.order.repo.OrderRepo;
 import ro.mycode.evomarketapi.orderdetails.models.OrderDetails;
-import ro.mycode.evomarketapi.orderdetails.models.OrderDetailsId;
+import ro.mycode.evomarketapi.orderdetails.repo.OrderDetailsRepo;
 import ro.mycode.evomarketapi.product.models.Product;
+import ro.mycode.evomarketapi.product.repo.ProductRepo;
+import ro.mycode.evomarketapi.product.services.ProductQuerryImplService;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 
+@Slf4j
 @SpringBootApplication
 public class EvomarketApiApplication {
 
@@ -21,20 +30,58 @@ public class EvomarketApiApplication {
 
 
     @Bean
-    CommandLineRunner commandLineRunner(
 
-    ) {
+    @Transactional
+    CommandLineRunner commandLineRunner(ProductQuerryImplService productQuerryImplService,ProductRepo productRepo, OrderRepo orderRepo, OrderDetailsRepo orderDetailsRepo) {
         return args -> {
 
-            Product product = new Product().builder().id("1").name("Laptop").SKU("KF1291KALE2").description("Laptop Lenovo").price(5321L).quantity(1).weight(25.3).category("telefoane").createdDate(LocalDateTime.now()).build();
-            Order order = new Order().builder().id("1").orderPhone("0751389111").orderStatus("cancel").orderDate(LocalDateTime.now()).orderAddress("Bucuresti Soseaua Pipera 16").ammount(5321L).build();
-            OrderDetailsId orderDetailsId = new OrderDetailsId().builder().orderId("1").productId("1").build();
-            OrderDetails orderDetails = new OrderDetails().builder().id(orderDetailsId).order(order).product(product).quantity(1).price(5321L).SKU("KF1291KALE2").build();
+//            Product product1 = Product.builder().name("Product1").description("Description1") .category("category").price(100L).SKU("SKU17887416").createdDate(LocalDateTime.now()).quantity(59).weight(4).build();
+//
+//            Product product2 = Product.builder().name("Product2").description("Description2") .category("category").price(100L).SKU("SKU17738876").createdDate(LocalDateTime.now()).quantity(59).weight(4).build();
+//
+//            Product product3 = Product.builder().name("Product3").description("Description3") .category("category").price(100L).SKU("SKU17812876").createdDate(LocalDateTime.now()).quantity(59).weight(4).build();
+//
+//            Product product4 = Product.builder().name("Product4").description("Description4") .category("category").price(100L).SKU("SKU17890876").createdDate(LocalDateTime.now()).quantity(59).weight(4).build();
+//
+//            Product product5 = Product.builder().name("Product5").description("Description5") .category("category").price(100L).SKU("SKU14428876").createdDate(LocalDateTime.now()).quantity(59).weight(4).build();
+//
+//            Product product6 = Product.builder().name("Product6").description("Description6") .category("category").price(100L).SKU("SKU17519776").createdDate(LocalDateTime.now()).quantity(59).weight(4).build();
+//
+//
+//
+//
+//
+//            productRepo.saveAllAndFlush(Arrays.asList(product1,product2,product3,product4,product5,product6));
+//
+//
+//
+//
+//            Order order = Order.builder()
+//                    .ammount(100L)
+//                    .shippingAddress("Shipping Address")
+//                    .orderAddress("Order Address")
+//                    .orderEmail("order@example.com")
+//                    .orderPhone("1234567890")
+//                    .orderDate(LocalDateTime.now())
+//                    .orderStatus("Pending")
+//                    .build();
+//
+//
+//            OrderDetails orderDetails1 = OrderDetails.builder().order(order).product(product1).price(100L).quantity(1).SKU("SKU178876").build();
+//
+//            order.addOrderDetails(orderDetails1);
+//            product1.addOrderDetails(orderDetails1);
+//
+//            orderRepo.saveAndFlush(order);
+//            List<Product> products = productQuerryImplService.getAllProducts();
+//            for (Product product : products) {
+//                log.info(product.toString());
+//            }
 
-            product.getOrderDetailsSet().add(orderDetails);
-            order.getOrderDetailsSet().add(orderDetails);
 
+              Product findProduct=productRepo.getProductsById(4L).get();
 
+                log.info(findProduct.toString());
         };
     }
 }
