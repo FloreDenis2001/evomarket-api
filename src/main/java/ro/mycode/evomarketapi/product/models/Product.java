@@ -1,10 +1,13 @@
 package ro.mycode.evomarketapi.product.models;
 //ID_PRODUCT,PRODUCT_NAME,DESCRIPTION,CATEGORY,PRICE,STOCK,IMAGES,DATA_ADDED,DATA_UPDATE
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.checkerframework.common.aliasing.qual.Unique;
 import org.hibernate.annotations.GenericGenerator;
 import ro.mycode.evomarketapi.orderdetails.models.OrderDetails;
 
@@ -20,26 +23,21 @@ import java.util.Set;
 @NoArgsConstructor
 @SuperBuilder
 @Data
-public class Product  implements Comparable<Product>{
+public class Product implements Comparable<Product> {
     @Id
+    @SequenceGenerator(name = "product_sequence", sequenceName = "product_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_sequence")
+    private Long id;
 
-
-    @GenericGenerator(
-            name = "string-sequence-generator", strategy = "ro.mycode.evomarketapi.system.StringSequenceGenerator"
-    )
-
-    @GeneratedValue(generator = "string-sequence-generator")
-
-    @Column(name = "id", nullable = false)
-    private String id;
 
     @Column(name = "name", nullable = false)
     @Size(min = 3, max = 50, message = "Product name must be between 3 and 50 characters")
     private String name;
 
 
-    @Column(name = "SKU", nullable = false)
+    @Column(name = "SKU", nullable = false,unique = true)
     @Size(min = 8, max = 12, message = "SKU must be between 8 and 12 characters")
+
     private String SKU;
 
     @Column(name = "price", nullable = false)
@@ -65,8 +63,13 @@ public class Product  implements Comparable<Product>{
     @Column(name = "created_date", nullable = false)
     private LocalDateTime createdDate;
     @OneToMany(mappedBy = "product")
+    @Builder.Default
     private Set<OrderDetails> orderDetailsSet = new HashSet<>();
 
+    public void addOrderDetails(OrderDetails orderDetails) {
+        this.orderDetailsSet.add(orderDetails);
+        orderDetails.setProduct(this);
+    }
 
     @Override
     public String toString() {
@@ -83,20 +86,19 @@ public class Product  implements Comparable<Product>{
 
     @Override
     public boolean equals(Object o) {
-      Product p = (Product) o;
-      return this.SKU.equals(p.SKU);
+        Product p = (Product) o;
+        return this.SKU.equals(p.SKU);
     }
 
     @Override
     public int compareTo(Product o) {
-     if(this.price > o.price)
-         return 1;
-     else if(this.price < o.price)
-         return -1;
-     else
-         return 0;
+        if (this.price > o.price)
+            return 1;
+        else if (this.price < o.price)
+            return -1;
+        else
+            return 0;
     }
-
 
 
 }
