@@ -4,6 +4,8 @@ package ro.mycode.evomarketapi.orderdetails.models;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.checkerframework.common.aliasing.qual.Unique;
+import org.hibernate.annotations.GenericGenerator;
 import ro.mycode.evomarketapi.order.models.Order;
 import ro.mycode.evomarketapi.product.models.Product;
 
@@ -15,18 +17,23 @@ import ro.mycode.evomarketapi.product.models.Product;
 @Data
 @Getter
 @Setter
+
 public class OrderDetails implements Comparable<OrderDetails>{
 
-    @EmbeddedId
-    private OrderDetailsId id;
+
+
+
+    @Id
+    @SequenceGenerator(name = "orderdetails_sequence", sequenceName = "orderdetails_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "orderdetails_sequence")
+    @Column(name = "id")
+    private Long id;
 
     @ManyToOne
-    @MapsId("orderId")
     @JoinColumn(name = "order_id")
     private Order order;
 
     @ManyToOne
-    @MapsId("productId")
     @JoinColumn(name = "product_id")
     private Product product;
 
@@ -38,6 +45,8 @@ public class OrderDetails implements Comparable<OrderDetails>{
 
     @Column(name = "SKU", nullable = false)
     private String SKU;
+
+
 
     @Override
     public String toString(){
