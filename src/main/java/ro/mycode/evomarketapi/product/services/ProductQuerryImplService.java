@@ -27,77 +27,96 @@ public class ProductQuerryImplService implements ProductQuerryService {
 
     @Override
     public Product getProductById(Long id) {
-        Product product = productRepo.getProductsById(id).orElseThrow(()-> new ListEmptyException());
+        Product product = productRepo.getProductsById(id).orElseThrow(() -> new ListEmptyException());
         return product;
     }
 
     @Override
     public Product getProductBySKU(String SKU) {
-        return null;
+        Product product = productRepo.getProductBySKU(SKU).orElseThrow(() -> new ListEmptyException());
+        return product;
     }
 
     @Override
     public List<Product> getProductsByCategory(String category) {
-        return null;
+        List<Product> product = productRepo.getProductsByCategory(category).orElseThrow(() -> new ListEmptyException());
+        return product;
     }
 
     @Override
     public List<Product> getProductsByPriceBetween(Long min, Long max) {
-        return null;
+
+        List<Product> products = productRepo.getProductsByPriceBetween(min, max).orElseThrow(() -> new ListEmptyException());
+        return products;
     }
 
     @Override
     public List<Product> getProductsByPriceLessThan(Long max) {
-        return null;
+
+        List<Product> products = productRepo.getProductsByPriceLessThan(max).orElseThrow(() -> new ListEmptyException());
+        return products;
     }
 
     @Override
     public List<Product> getProductsByPriceGreaterThan(Long min) {
-        return null;
+        List<Product> products = productRepo.getProductsByPriceGreaterThan(min).orElseThrow(() -> new ListEmptyException());
+        return products;
     }
 
     @Override
     public List<Product> getProductsByPriceLessThanAndCategory(Long max, String category) {
-        return null;
+        List<Product> products = productRepo.getProductsByPriceLessThanAndCategory(max, category).orElseThrow(() -> new ListEmptyException());
+        return products;
     }
 
     @Override
     public List<Product> getProductsByPriceGreaterThanAndCategory(Long min, String category) {
-        return null;
+        List<Product> products = productRepo.getProductsByPriceGreaterThanAndCategory(min, category).orElseThrow(() -> new ListEmptyException());
+        return products;
     }
 
     @Override
     public List<Product> getProductsByPriceBetweenAndCategory(Long min, Long max, String category) {
+
+        List<Product> products = productRepo.getProductsByPriceBetweenAndCategory(min, max, category).orElseThrow(() -> new ListEmptyException());
         return null;
     }
 
     @Override
     public List<Product> getProductsByPriceLessThanAndCategoryAndName(Long max, String category, String name) {
-        return null;
+        List<Product> products = productRepo.getProductsByPriceLessThanAndCategoryAndName(max, category, name).orElseThrow(() -> new ListEmptyException());
+
+        return products;
     }
 
     @Override
     public List<Product> getProductsByPriceGreaterThanAndCategoryAndName(Long min, String category, String name) {
-        return null;
+        List<Product> products = productRepo.getProductsByPriceGreaterThanAndCategoryAndName(min, category, name).orElseThrow(() -> new ListEmptyException());
+        return products;
     }
 
     @Override
     public List<Product> getProductsByPriceBetweenAndCategoryAndName(Long min, Long max, String category, String name) {
-        return null;
+        List<Product> products = productRepo.getProductsByPriceBetweenAndCategoryAndName(min, max, category, name).orElseThrow(() -> new ListEmptyException());
+        return products;
     }
 
     @Override
     public List<Product> getProductsByPriceLessThanAndName(Long max, String name) {
-        return null;
+        List<Product> products = productRepo.getProductsByPriceLessThanAndName(max, name).orElseThrow(() -> new ListEmptyException());
+        return products;
     }
 
     @Override
     public List<Product> getProductsByPriceGreaterThanAndName(Long min, String name) {
-        return null;
+        List<Product> products= productRepo.getProductsByPriceGreaterThanAndName(min, name).orElseThrow(() -> new ListEmptyException());
+        return products;
     }
 
     @Override
     public List<Product> getProductsByPriceBetweenAndName(Long min, Long max, String name) {
-        return null;
+        List<Product> products = productRepo.getProductsByPriceBetweenAndName(min, max, name).orElseThrow(() -> new ListEmptyException());
+
+return null;
     }
 }

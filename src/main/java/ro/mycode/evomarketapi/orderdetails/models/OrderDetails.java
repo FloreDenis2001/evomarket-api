@@ -46,6 +46,13 @@ public class OrderDetails implements Comparable<OrderDetails>{
     @Column(name = "SKU", nullable = false)
     private String SKU;
 
+    public OrderDetails(Order order, Product product, int quantity, double price, String sku) {
+        this.order = order;
+        this.product = product;
+        this.quantity = quantity;
+        this.price = (long) price;
+        this.SKU = sku;
+    }
 
 
     @Override

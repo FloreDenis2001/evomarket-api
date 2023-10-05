@@ -9,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import ro.mycode.evomarketapi.order.models.Order;
 import ro.mycode.evomarketapi.order.repo.OrderRepo;
+import ro.mycode.evomarketapi.orderdetails.dto.OrderDetailsDTO;
+import ro.mycode.evomarketapi.orderdetails.dto.UpdateOrderDetailsDTO;
 import ro.mycode.evomarketapi.orderdetails.models.OrderDetails;
 import ro.mycode.evomarketapi.orderdetails.repo.OrderDetailsRepo;
+import ro.mycode.evomarketapi.orderdetails.services.OrderDetailsCommandServiceImpl;
+import ro.mycode.evomarketapi.orderdetails.services.OrderDetailsQuerryServiceImpl;
 import ro.mycode.evomarketapi.product.models.Product;
 import ro.mycode.evomarketapi.product.repo.ProductRepo;
+import ro.mycode.evomarketapi.product.services.ProductCommandServiceImpl;
 import ro.mycode.evomarketapi.product.services.ProductQuerryImplService;
 
 import java.time.LocalDateTime;
@@ -32,7 +37,7 @@ public class EvomarketApiApplication {
     @Bean
 
     @Transactional
-    CommandLineRunner commandLineRunner(ProductQuerryImplService productQuerryImplService,ProductRepo productRepo, OrderRepo orderRepo, OrderDetailsRepo orderDetailsRepo) {
+    CommandLineRunner commandLineRunner(OrderDetailsQuerryServiceImpl orderDetailsQuerryServiceImpl, OrderDetailsCommandServiceImpl orderDetailsCommandServiceImpl, ProductCommandServiceImpl productCommandServiceImpl, ProductQuerryImplService productQuerryImplService, ProductRepo productRepo, OrderRepo orderRepo, OrderDetailsRepo orderDetailsRepo) {
         return args -> {
 
 //            Product product1 = Product.builder().name("Product1").description("Description1") .category("category").price(100L).SKU("SKU17887416").createdDate(LocalDateTime.now()).quantity(59).weight(4).build();
@@ -47,7 +52,9 @@ public class EvomarketApiApplication {
 //
 //            Product product6 = Product.builder().name("Product6").description("Description6") .category("category").price(100L).SKU("SKU17519776").createdDate(LocalDateTime.now()).quantity(59).weight(4).build();
 //
+//            Product product11 = Product.builder().name("Product1").description("Description1") .category("category").price(100L).SKU("SKU4000116").createdDate(LocalDateTime.now()).quantity(59).weight(4).build();
 //
+//           productRepo.saveAndFlush(product11);
 //
 //
 //
@@ -75,13 +82,41 @@ public class EvomarketApiApplication {
 //            orderRepo.saveAndFlush(order);
 //            List<Product> products = productQuerryImplService.getAllProducts();
 //            for (Product product : products) {
-//                log.info(product.toString());
+//                product.setRating(0);
 //            }
+//
+//
+//              Product findProduct=productRepo.getProductsById(4L).get();
+//
+//                log.info(findProduct.toString());
+//
+//            Product product11=productQuerryImplService.getProductById(4L);
+//
+//            log.info(product11.toString());
+//
+//            Product product14=productQuerryImplService.getProductBySKU("SKU17887416");
+//            log.info(product14.toString());
+
+//            ProductDTO productDTO=ProductDTO.builder().name("ProductDTO").description("Description1").category("category").price(100L).SKU("SK94142135").createdDate(LocalDateTime.now()).quantity(59).weight(4).build();
+//            productCommandServiceImpl.addProduct(productDTO);
 
 
-              Product findProduct=productRepo.getProductsById(4L).get();
+//            productCommandServiceImpl.deleteProduct("SK94142135");
 
-                log.info(findProduct.toString());
+
+//            UpdateProductRequest updateProductRequest = UpdateProductRequest.builder().name("ProductUpdate2").description("Description1").category("category").price(110L).quantity(59).weight(4).build();
+//            String SKU = "SKU17890876";
+//            productCommandServiceImpl.updateProduct(SKU, updateProductRequest);
+
+
+
+//            Product product=productRepo.findById(4L).get();
+//            Order order=orderRepo.findById(1L).get();
+//
+//            OrderDetailsDTO orderDetailsDTO=OrderDetailsDTO.builder().order(order).product(product).price(100L).quantity(1).SKU("SKU178876").build();
+//            orderDetailsCommandServiceImpl.addOrderDetails(orderDetailsDTO);
+            UpdateOrderDetailsDTO updateOrderDetailsDTO=UpdateOrderDetailsDTO.builder().price(200L).quantity(2).build();
+            orderDetailsCommandServiceImpl.updateOrderDetails(3L,updateOrderDetailsDTO);
         };
     }
 }

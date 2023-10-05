@@ -1,5 +1,4 @@
 package ro.mycode.evomarketapi.product.models;
-//ID_PRODUCT,PRODUCT_NAME,DESCRIPTION,CATEGORY,PRICE,STOCK,IMAGES,DATA_ADDED,DATA_UPDATE
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -35,7 +34,7 @@ public class Product implements Comparable<Product> {
     private String name;
 
 
-    @Column(name = "SKU", nullable = false,unique = true)
+    @Column(name = "SKU", nullable = false, unique = true)
     @Size(min = 8, max = 12, message = "SKU must be between 8 and 12 characters")
 
     private String SKU;
@@ -59,12 +58,27 @@ public class Product implements Comparable<Product> {
     @Column(name = "category", nullable = false)
     private String category;
 
+    @Column(name = "rating", nullable = false, columnDefinition = "double default 0")
+    private double rating;
+
 
     @Column(name = "created_date", nullable = false)
     private LocalDateTime createdDate;
     @OneToMany(mappedBy = "product")
     @Builder.Default
     private Set<OrderDetails> orderDetailsSet = new HashSet<>();
+
+    public Product(String name, String description, Long price, String sku, int quantity, double weight, String category, double rating, LocalDateTime createdDate) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.SKU = sku;
+        this.quantity = quantity;
+        this.weight = weight;
+        this.category = category;
+        this.rating = rating;
+        this.createdDate = createdDate;
+    }
 
     public void addOrderDetails(OrderDetails orderDetails) {
         this.orderDetailsSet.add(orderDetails);
