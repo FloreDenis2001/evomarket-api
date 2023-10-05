@@ -42,8 +42,12 @@ public class OrderDetailsCommandServiceImpl implements OrderDetailsCommandServic
     }
 
     @Override
-    public void updateOrderDetails(Long idOrderDetails, UpdateOrderDetailsDTO updateOrderDetailsDTO) {
-        Optional<OrderDetails> orderDetailsOptional = orderDetailsRepository.findById(idOrderDetails);
+    public void updateOrderDetails(OrderDetailsDTO orderDetailsDTO, UpdateOrderDetailsDTO updateOrderDetailsDTO) {
+        Optional<OrderDetails> orderDetailsOptional = orderDetailsRepository.findByOrderIdAndProductIdAndSKU(
+                orderDetailsDTO.order().getId(),
+                orderDetailsDTO.product().getId(),
+                orderDetailsDTO.SKU()
+        );
         if (orderDetailsOptional.isPresent()) {
             OrderDetails orderDetails = orderDetailsOptional.get();
 
@@ -58,4 +62,21 @@ public class OrderDetailsCommandServiceImpl implements OrderDetailsCommandServic
             throw new OrderDetailsNotFoundException();
         }
     }
+
+    @Override
+    public void deleteOrderDetails(OrderDetailsDTO orderDetailsDTO) {
+
+        Optional<OrderDetails> orderDetailsOptional = orderDetailsRepository.findByOrderIdAndProductIdAndSKU(
+                orderDetailsDTO.order().getId(),
+                orderDetailsDTO.product().getId(),
+                orderDetailsDTO.SKU()
+        );
+        if (orderDetailsOptional.isPresent()) {
+            orderDetailsRepository.delete(orderDetailsOptional.get());
+        } else {
+            throw new OrderDetailsNotFoundException();
+        }
+    }
+
+
 }

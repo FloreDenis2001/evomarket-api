@@ -16,15 +16,13 @@ public interface OrderRepo extends JpaRepository<Order, Long> {
     Optional<Order> findById(Long id);
 
     @EntityGraph(attributePaths = {"orderDetailsSet"}, type = EntityGraph.EntityGraphType.LOAD)
-    List<Order> findAll();
+    Optional<List<Order>> findAllByUserId(Long userId);
 
-//    @EntityGraph(type = EntityGraph.EntityGraphType.LOAD)
-//    List<Order> findAllByUserId(Long userId);
-//
-//    @EntityGraph( type = EntityGraph.EntityGraphType.LOAD)
-//    List<Order> findAllByUserIdAndStatus(Long userId, String status);
-//
-//    @EntityGraph(type = EntityGraph.EntityGraphType.LOAD)
-//    List<Order> findAllByStatus(String status);
+    @EntityGraph(attributePaths = {"orderDetailsSet"}, type = EntityGraph.EntityGraphType.LOAD)
+    Optional<List<Order>> findAllByUserIdAndStatus(Long userId, String status);
+
+    @EntityGraph (attributePaths = {"orderDetailsSet"}, type = EntityGraph.EntityGraphType.LOAD)
+    Optional<List<Order>> findAllByStatus(String status);
+
 
 }

@@ -110,13 +110,16 @@ public class EvomarketApiApplication {
 
 
 
-//            Product product=productRepo.findById(4L).get();
-//            Order order=orderRepo.findById(1L).get();
+            Product product=productRepo.findById(4L).get();
+            Order order=orderRepo.findById(1L).get();
 //
-//            OrderDetailsDTO orderDetailsDTO=OrderDetailsDTO.builder().order(order).product(product).price(100L).quantity(1).SKU("SKU178876").build();
-//            orderDetailsCommandServiceImpl.addOrderDetails(orderDetailsDTO);
-            UpdateOrderDetailsDTO updateOrderDetailsDTO=UpdateOrderDetailsDTO.builder().price(200L).quantity(2).build();
-            orderDetailsCommandServiceImpl.updateOrderDetails(3L,updateOrderDetailsDTO);
+            OrderDetailsDTO orderDetailsDTO=OrderDetailsDTO.builder().order(order).product(product).price(300L).quantity(3).SKU("SKU178876").build();
+            orderDetailsCommandServiceImpl.addOrderDetails(orderDetailsDTO);
+//            UpdateOrderDetailsDTO updateOrderDetailsDTO=UpdateOrderDetailsDTO.builder().price(300L).quantity(3).build();
+//            orderDetailsCommandServiceImpl.updateOrderDetails(orderDetailsDTO,updateOrderDetailsDTO);
+//            orderDetailsCommandServiceImpl.deleteOrderDetails(orderDetailsDTO);
+
+
         };
     }
 }

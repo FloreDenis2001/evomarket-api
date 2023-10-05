@@ -11,8 +11,9 @@ public interface OrderDetailsCommandService {
 
     void addOrderDetails(OrderDetailsDTO orderDetailsDTO);
 
-    void updateOrderDetails(Long idOrderDetails, UpdateOrderDetailsDTO updateOrderDetailsDTO);
-//    void deleteOrderDetails();
+    void updateOrderDetails(OrderDetailsDTO orderDetailsDTO, UpdateOrderDetailsDTO updateOrderDetailsDTO);
+
+    void deleteOrderDetails(OrderDetailsDTO orderDetailsDTO);
 
 
 }
