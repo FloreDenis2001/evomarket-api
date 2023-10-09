@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.GenericGenerator;
+import ro.mycode.evomarketapi.system.security.UserRole;
 
 import java.time.LocalDateTime;
 
@@ -51,7 +52,7 @@ public class User {
 
     @Column(name = "role", nullable = false)
     @Size(min = 3, max = 50, message = "Role must be between 3 and 50 characters")
-    private String role;
+    private UserRole userRole;
 
 
     @Column(name = "registered_at", nullable = false)
@@ -70,7 +71,7 @@ public class User {
         text += "Last Name : " + this.last_name + "\n";
         text += "Phone Number : " + this.phone_number + "\n";
         text += "Email : " + this.email + "\n";
-        text += "Role : " + this.role + "\n";
+        text += "Role : " + this.userRole + "\n";
         text += "Active : " + this.active + "\n";
         text += "Registered At : " + this.registered_at + "\n";
         text += "Created At : " + this.created_at + "\n";

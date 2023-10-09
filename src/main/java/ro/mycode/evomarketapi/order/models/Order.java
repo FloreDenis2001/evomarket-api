@@ -16,7 +16,6 @@ import java.util.Set;
 
 @Table(name = "orders")
 @Entity(name = "Order")
-@AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
 @Data
@@ -24,6 +23,17 @@ import java.util.Set;
 @Setter
 
 public class Order implements Comparable<Order> {
+    public Order(Long id, Long ammount, String shippingAddress, String orderAddress, String orderEmail, String orderPhone, LocalDateTime orderDate, String orderStatus, Set<OrderDetails> orderDetailsSet) {
+        this.id = id;
+        this.ammount = ammount;
+        this.shippingAddress = shippingAddress;
+        this.orderAddress = orderAddress;
+        this.orderEmail = orderEmail;
+        this.orderPhone = orderPhone;
+        this.orderDate = orderDate;
+        this.orderStatus = orderStatus;
+        this.orderDetailsSet = orderDetailsSet;
+    }
 
     @Id
     @SequenceGenerator(name = "order_sequence", sequenceName = "order_sequence", allocationSize = 1)

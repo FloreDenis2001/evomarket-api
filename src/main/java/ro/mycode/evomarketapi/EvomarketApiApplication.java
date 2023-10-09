@@ -7,13 +7,19 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import ro.mycode.evomarketapi.order.dto.OrderDTO;
 import ro.mycode.evomarketapi.order.models.Order;
 import ro.mycode.evomarketapi.order.repo.OrderRepo;
+import ro.mycode.evomarketapi.order.services.OrderCommandService;
+import ro.mycode.evomarketapi.order.services.OrderCommandServiceImpl;
+import ro.mycode.evomarketapi.order.services.OrderQuerryService;
+import ro.mycode.evomarketapi.order.services.OrderQuerryServiceImpl;
 import ro.mycode.evomarketapi.orderdetails.dto.OrderDetailsDTO;
 import ro.mycode.evomarketapi.orderdetails.dto.UpdateOrderDetailsDTO;
 import ro.mycode.evomarketapi.orderdetails.models.OrderDetails;
 import ro.mycode.evomarketapi.orderdetails.repo.OrderDetailsRepo;
 import ro.mycode.evomarketapi.orderdetails.services.OrderDetailsCommandServiceImpl;
+import ro.mycode.evomarketapi.orderdetails.services.OrderDetailsQuerryService;
 import ro.mycode.evomarketapi.orderdetails.services.OrderDetailsQuerryServiceImpl;
 import ro.mycode.evomarketapi.product.models.Product;
 import ro.mycode.evomarketapi.product.repo.ProductRepo;
@@ -37,7 +43,7 @@ public class EvomarketApiApplication {
     @Bean
 
     @Transactional
-    CommandLineRunner commandLineRunner(OrderDetailsQuerryServiceImpl orderDetailsQuerryServiceImpl, OrderDetailsCommandServiceImpl orderDetailsCommandServiceImpl, ProductCommandServiceImpl productCommandServiceImpl, ProductQuerryImplService productQuerryImplService, ProductRepo productRepo, OrderRepo orderRepo, OrderDetailsRepo orderDetailsRepo) {
+    CommandLineRunner commandLineRunner(OrderCommandServiceImpl orderCommandServiceImpl, OrderQuerryServiceImpl orderQuerryService, OrderDetailsQuerryService orderDetailsQuerryServiceImpl, OrderDetailsCommandServiceImpl orderDetailsCommandServiceImpl, ProductCommandServiceImpl productCommandServiceImpl, ProductQuerryImplService productQuerryImplService, ProductRepo productRepo, OrderRepo orderRepo, OrderDetailsRepo orderDetailsRepo) {
         return args -> {
 
 //            Product product1 = Product.builder().name("Product1").description("Description1") .category("category").price(100L).SKU("SKU17887416").createdDate(LocalDateTime.now()).quantity(59).weight(4).build();
@@ -109,16 +115,17 @@ public class EvomarketApiApplication {
 //            productCommandServiceImpl.updateProduct(SKU, updateProductRequest);
 
 
-
-            Product product=productRepo.findById(4L).get();
-            Order order=orderRepo.findById(1L).get();
+            Product product = productRepo.findById(4L).get();
+            Order order = orderRepo.findById(1L).get();
 //
-            OrderDetailsDTO orderDetailsDTO=OrderDetailsDTO.builder().order(order).product(product).price(300L).quantity(3).SKU("SKU178876").build();
-            orderDetailsCommandServiceImpl.addOrderDetails(orderDetailsDTO);
+//            OrderDetailsDTO orderDetailsDTO=OrderDetailsDTO.builder().order(order).product(product).price(300L).quantity(3).SKU("SKU178876").build();
+//            orderDetailsCommandServiceImpl.addOrderDetails(orderDetailsDTO);
 //            UpdateOrderDetailsDTO updateOrderDetailsDTO=UpdateOrderDetailsDTO.builder().price(300L).quantity(3).build();
 //            orderDetailsCommandServiceImpl.updateOrderDetails(orderDetailsDTO,updateOrderDetailsDTO);
 //            orderDetailsCommandServiceImpl.deleteOrderDetails(orderDetailsDTO);
 
+            OrderDTO orderDTO = OrderDTO.builder().ammount(100L).shippingAddress("Shipping Address").orderAddress("Order Address").orderEmail("denis@yahoo.com").orderPhone("1234567890").orderDate(LocalDateTime.now()).orderStatus("Pending").build();
+            orderCommandServiceImpl.addOrder(orderDTO);
 
         };
     }

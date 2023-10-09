@@ -5,6 +5,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import ro.mycode.evomarketapi.order.models.Order;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -13,9 +14,6 @@ public interface OrderQuerryService {
 
         Optional<Order> findById(Long id);
 
-        Optional<Order> findByUserId(Long userId);
+        Optional<List<Order>> findAllByUserId(Long userId);
 
-        Optional<Order> findByUserIdAndStatus(Long userId, String status);
-
-        Optional<Order> findByStatus(String status);
 }

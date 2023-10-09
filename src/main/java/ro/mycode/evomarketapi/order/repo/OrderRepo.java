@@ -18,11 +18,5 @@ public interface OrderRepo extends JpaRepository<Order, Long> {
     @EntityGraph(attributePaths = {"orderDetailsSet"}, type = EntityGraph.EntityGraphType.LOAD)
     Optional<List<Order>> findAllByUserId(Long userId);
 
-    @EntityGraph(attributePaths = {"orderDetailsSet"}, type = EntityGraph.EntityGraphType.LOAD)
-    Optional<List<Order>> findAllByUserIdAndStatus(Long userId, String status);
-
-    @EntityGraph (attributePaths = {"orderDetailsSet"}, type = EntityGraph.EntityGraphType.LOAD)
-    Optional<List<Order>> findAllByStatus(String status);
-
 
 }
