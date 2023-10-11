@@ -1,13 +1,9 @@
 package ro.mycode.evomarketapi.product.models;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.checkerframework.common.aliasing.qual.Unique;
-import org.hibernate.annotations.GenericGenerator;
 import ro.mycode.evomarketapi.orderdetails.models.OrderDetails;
 
 import java.time.LocalDateTime;

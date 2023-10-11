@@ -4,8 +4,6 @@ package ro.mycode.evomarketapi.orderdetails.models;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.checkerframework.common.aliasing.qual.Unique;
-import org.hibernate.annotations.GenericGenerator;
 import ro.mycode.evomarketapi.order.models.Order;
 import ro.mycode.evomarketapi.product.models.Product;
 

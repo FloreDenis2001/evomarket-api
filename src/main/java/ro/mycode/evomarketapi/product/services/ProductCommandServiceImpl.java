@@ -1,6 +1,5 @@
 package ro.mycode.evomarketapi.product.services;
 
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import ro.mycode.evomarketapi.exceptions.ProductAlreadyExistException;
 import ro.mycode.evomarketapi.exceptions.ProductNotFoundException;

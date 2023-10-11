@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import ro.mycode.evomarketapi.order.models.Order;
 import ro.mycode.evomarketapi.product.models.Product;
 
 import java.util.List;

@@ -1,12 +1,8 @@
 package ro.mycode.evomarketapi.system;
 
 import jakarta.transaction.Transactional;
-import org.hibernate.engine.spi.SharedSessionContractImplementor;
-import org.hibernate.id.IdentifierGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.io.Serializable;
 
 @Component
 public class CustomSequenceGenerator {

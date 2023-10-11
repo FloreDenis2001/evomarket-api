@@ -12,8 +12,8 @@ import java.util.Optional;
 @Transactional
 public interface OrderQuerryService {
 
-        Optional<Order> findById(Long id);
+    Optional<Order> findById(Long id);
 
-        Optional<List<Order>> findAllByUserId(Long userId);
+    Optional<List<Order>> findAllByUserId(Long userId);
 
 }

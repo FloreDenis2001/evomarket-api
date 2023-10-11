@@ -1,14 +1,13 @@
 package ro.mycode.evomarketapi.order.models;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.GenericGenerator;
 import ro.mycode.evomarketapi.orderdetails.models.OrderDetails;
+import ro.mycode.evomarketapi.user.models.User;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -23,8 +22,9 @@ import java.util.Set;
 @Setter
 
 public class Order implements Comparable<Order> {
-    public Order(Long id, Long ammount, String shippingAddress, String orderAddress, String orderEmail, String orderPhone, LocalDateTime orderDate, String orderStatus, Set<OrderDetails> orderDetailsSet) {
+    public Order(Long id,Long userId, Long ammount, String shippingAddress, String orderAddress, String orderEmail, String orderPhone, LocalDateTime orderDate, String orderStatus, Set<OrderDetails> orderDetailsSet) {
         this.id = id;
+        this.userId = userId;
         this.ammount = ammount;
         this.shippingAddress = shippingAddress;
         this.orderAddress = orderAddress;
@@ -42,6 +42,10 @@ public class Order implements Comparable<Order> {
 
 
     private Long id;
+
+
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 
     @Column(name = "ammount", nullable = false)
     private Long ammount;
@@ -67,7 +71,7 @@ public class Order implements Comparable<Order> {
     @Size(min = 3, max = 10, message = "Order status must be between 3 and 10 characters")
     private String orderStatus;
 
-    @OneToMany(mappedBy = "order" ,cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private Set<OrderDetails> orderDetailsSet = new HashSet<>();
 
@@ -79,6 +83,7 @@ public class Order implements Comparable<Order> {
     @Override
     public String toString() {
         String text = "Order id : " + this.id + "\n";
+        text += "User id : " + this.userId + "\n";
         text += "Ammount : " + this.ammount + "\n";
         text += "Shipping address : " + this.shippingAddress + "\n";
         text += "Order address : " + this.orderAddress + "\n";
@@ -104,5 +109,9 @@ public class Order implements Comparable<Order> {
         else return 0;
     }
 
+    @ManyToOne
+    @JsonManagedReference
+    @JoinColumn(name = "user_id", referencedColumnName = "id",foreignKey = @ForeignKey(name="user_id_fk"), insertable = false, updatable = false)
+    private User user;
 
 }

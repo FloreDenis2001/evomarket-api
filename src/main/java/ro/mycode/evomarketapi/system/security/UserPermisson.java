@@ -5,16 +5,35 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public enum UserPermisson {
 
+    PRODUCT_ADD("product:add"),
+
+
+    PRODUCT_REMOVE("product:remove"),
+
+    PRODUCT_UPDATE("order:update"),
+
     PRODUCT_READ("product:read"),
-    PRODUCT_WRITE("product:write"),
+
+    ORDER_ADD("order:add"),
+
+    ORDER_REMOVE("order:remove"),
+
+    ORDER_UPDATE("order:update"),
+
     ORDER_READ("order:read"),
 
-    ORDER_WRITE("order:write"),
+    ORDERDETAILS_ADD("orderdetails:add"),
+
+    ORDERDETAILS_REMOVE("orderdetails:remove"),
+
+    ORDERDETAILS_UPDATE("orderdetails:update"),
+
+    ORDERDETAILS_READ("orderdetails:read"),
+
 
     USER_READ("user:read"),
 
-    USER_WRITE("user:write"),
-    ;
+    USER_WRITE("user:write");
 
 
     private final String permission;
