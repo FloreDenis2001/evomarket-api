@@ -11,6 +11,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import ro.mycode.evomarketapi.order.models.Order;
 import ro.mycode.evomarketapi.system.security.UserRole;
 
@@ -24,7 +25,6 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @SuperBuilder
 @Data
 public class User implements UserDetails {
@@ -57,8 +57,9 @@ public class User implements UserDetails {
     private String email;
 
     @Column(name = "password", nullable = false)
-    @Size(min = 3, max = 50, message = "Password must be between 3 and 50 characters")
     private String password;
+
+
 
     @Column(name = "role", nullable = false)
     private UserRole userRole;
@@ -73,9 +74,26 @@ public class User implements UserDetails {
     @Column(name = "active", nullable = false)
     private boolean active;
 
+    public User(Long id, String firstName, String lastName, String phoneNumber, String email, String password, UserRole userRole, LocalDateTime registeredAt, LocalDateTime createdAt, boolean active, Set<Order> orderSet) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.password = new BCryptPasswordEncoder().encode(password);
+        this.userRole = userRole;
+        this.registeredAt = registeredAt;
+        this.createdAt = createdAt;
+        this.active = active;
+        this.orderSet = orderSet;
+    }
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    public void setPassword(String password) {
+        this.password =new BCryptPasswordEncoder().encode(password);
+    }
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.TRUE)
     @JsonManagedReference
     @Builder.Default
     private Set<Order> orderSet = new HashSet<>();

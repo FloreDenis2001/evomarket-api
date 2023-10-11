@@ -15,13 +15,21 @@ import ro.mycode.evomarketapi.order.models.Order;
 import ro.mycode.evomarketapi.order.repo.OrderRepo;
 import ro.mycode.evomarketapi.order.services.OrderCommandServiceImpl;
 import ro.mycode.evomarketapi.order.services.OrderQuerryServiceImpl;
+import ro.mycode.evomarketapi.orderdetails.models.OrderDetails;
 import ro.mycode.evomarketapi.orderdetails.repo.OrderDetailsRepo;
 import ro.mycode.evomarketapi.orderdetails.services.OrderDetailsCommandServiceImpl;
 import ro.mycode.evomarketapi.orderdetails.services.OrderDetailsQuerryService;
+import ro.mycode.evomarketapi.product.models.Product;
 import ro.mycode.evomarketapi.product.repo.ProductRepo;
 import ro.mycode.evomarketapi.product.services.ProductCommandServiceImpl;
 import ro.mycode.evomarketapi.product.services.ProductQuerryImplService;
+import ro.mycode.evomarketapi.system.security.UserRole;
+import ro.mycode.evomarketapi.user.dto.UserDTO;
+import ro.mycode.evomarketapi.user.models.User;
 import ro.mycode.evomarketapi.user.repo.UserRepo;
+import ro.mycode.evomarketapi.user.services.UserCommandService;
+import ro.mycode.evomarketapi.user.services.UserCommandServiceImpl;
+import ro.mycode.evomarketapi.user.services.UserQuerryServiceImpl;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -40,11 +48,67 @@ public class EvomarketApiApplication {
     @Bean
 
     @Transactional
-    CommandLineRunner commandLineRunner(OrderQuerryServiceImpl orderQuerryServiceImpl, UserRepo userRepo, OrderCommandServiceImpl orderCommandServiceImpl, OrderQuerryServiceImpl orderQuerryService, OrderDetailsQuerryService orderDetailsQuerryServiceImpl, OrderDetailsCommandServiceImpl orderDetailsCommandServiceImpl, ProductCommandServiceImpl productCommandServiceImpl, ProductQuerryImplService productQuerryImplService, ProductRepo productRepo, OrderRepo orderRepo, OrderDetailsRepo orderDetailsRepo) {
+    CommandLineRunner commandLineRunner(OrderQuerryServiceImpl orderQuerryServiceImpl, UserRepo userRepo, OrderCommandServiceImpl orderCommandServiceImpl,
+                                        OrderQuerryServiceImpl orderQuerryService,
+                                        OrderDetailsQuerryService orderDetailsQuerryServiceImpl,
+                                        OrderDetailsCommandServiceImpl orderDetailsCommandServiceImpl,
+                                        ProductCommandServiceImpl productCommandServiceImpl,
+                                        ProductQuerryImplService productQuerryImplService,
+                                        ProductRepo productRepo, OrderRepo orderRepo, OrderDetailsRepo orderDetailsRepo,
+                                        UserCommandServiceImpl userCommandServiceImpl, UserQuerryServiceImpl userQuerryServiceImpl) {
         return args -> {
             log.info("Start");
-//            OrderDTO orderDTO = OrderDTO.builder().userId(1L).ammount(400L).shippingAddress("Shipping Address").orderAddress("Order Address").orderEmail("denis@yahoo.com").orderPhone("1234567890").orderDate(LocalDateTime.now()).orderStatus("Pending").build();
-            orderCommandServiceImpl.deleteOrder(3L);
+
+//                        User user=new User();
+//                        user.setFirstName("Andrei");
+//                        user.setLastName("Popescu");
+//                        user.setEmail("andreipopescu@yahoo.com");
+//                        user.setPassword("andrei1234");
+//                        user.setPhoneNumber("0722222222");
+//                        user.setUserRole(UserRole.ADMIN);
+//                        user.setRegisteredAt(LocalDateTime.now());
+//                        user.setCreatedAt(LocalDateTime.now());
+//                        user.setActive(true);
+//
+//                        userRepo.saveAndFlush(user);
+//
+//                        Product product1=productRepo.getProductsById(1L).get();
+//
+//                        Order order = Order.builder()
+//                                .ammount(100L)
+//                                .userId(2L)
+//                                .shippingAddress("Shipping Address")
+//                                .orderAddress("Order Address")
+//                                .orderEmail("order@example.com")
+//                                .orderPhone("1234567890")
+//                                .orderDate(LocalDateTime.now())
+//                                .orderStatus("Pending")
+//                                .build();
+//
+//
+//                        OrderDetails orderDetails1 = OrderDetails.builder().order(order).product(product1).price(100L).quantity(1).SKU("SKU178876").build();
+//
+//                        order.addOrderDetails(orderDetails1);
+//
+//
+//
+//
+//
+//                        orderRepo.saveAndFlush(order);
+
+
+//            List<User> users = userRepo.findAll();
+//            for (User user : users) {
+//                log.info(user.toString());
+//            }
+//
+            UserDTO userDTO = UserDTO.builder().firstName("Denis").lastName("Flore").email("denisupdate@yahoo.com").password("denis1234").phoneNumber("0722222222").userRole(UserRole.ADMIN).registeredAt(LocalDateTime.now()).createdAt(LocalDateTime.now()).active(true).build();
+//
+//userCommandServiceImpl.addUser(userDTO);
+
+userCommandServiceImpl.updateUser("denis@yahoo.com",userDTO);
+
+
         };
     }
 

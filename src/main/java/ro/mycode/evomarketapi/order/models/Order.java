@@ -71,7 +71,7 @@ public class Order implements Comparable<Order> {
     @Size(min = 3, max = 10, message = "Order status must be between 3 and 10 characters")
     private String orderStatus;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private Set<OrderDetails> orderDetailsSet = new HashSet<>();
 

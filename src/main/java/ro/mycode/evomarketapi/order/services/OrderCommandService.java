@@ -8,9 +8,5 @@ import ro.mycode.evomarketapi.order.dto.OrderDTO;
 @Transactional
 public interface OrderCommandService {
 
-    void addOrder(OrderDTO orderDTO);
 
-    void deleteOrder(Long id);
-
-    void updateOrder(OrderDTO orderDTO);
 }
