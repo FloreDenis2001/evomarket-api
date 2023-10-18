@@ -59,54 +59,6 @@ public class EvomarketApiApplication {
         return args -> {
             log.info("Start");
 
-//                        User user=new User();
-//                        user.setFirstName("Andrei");
-//                        user.setLastName("Popescu");
-//                        user.setEmail("andreipopescu@yahoo.com");
-//                        user.setPassword("andrei1234");
-//                        user.setPhoneNumber("0722222222");
-//                        user.setUserRole(UserRole.ADMIN);
-//                        user.setRegisteredAt(LocalDateTime.now());
-//                        user.setCreatedAt(LocalDateTime.now());
-//                        user.setActive(true);
-//
-//                        userRepo.saveAndFlush(user);
-//
-//                        Product product1=productRepo.getProductsById(1L).get();
-//
-//                        Order order = Order.builder()
-//                                .ammount(100L)
-//                                .userId(2L)
-//                                .shippingAddress("Shipping Address")
-//                                .orderAddress("Order Address")
-//                                .orderEmail("order@example.com")
-//                                .orderPhone("1234567890")
-//                                .orderDate(LocalDateTime.now())
-//                                .orderStatus("Pending")
-//                                .build();
-//
-//
-//                        OrderDetails orderDetails1 = OrderDetails.builder().order(order).product(product1).price(100L).quantity(1).SKU("SKU178876").build();
-//
-//                        order.addOrderDetails(orderDetails1);
-//
-//
-//
-//
-//
-//                        orderRepo.saveAndFlush(order);
-
-
-//            List<User> users = userRepo.findAll();
-//            for (User user : users) {
-//                log.info(user.toString());
-//            }
-//
-            UserDTO userDTO = UserDTO.builder().firstName("Denis").lastName("Flore").email("denisupdate@yahoo.com").password("denis1234").phoneNumber("0722222222").userRole(UserRole.ADMIN).registeredAt(LocalDateTime.now()).createdAt(LocalDateTime.now()).active(true).build();
-//
-//userCommandServiceImpl.addUser(userDTO);
-
-userCommandServiceImpl.updateUser("denis@yahoo.com",userDTO);
 
 
         };

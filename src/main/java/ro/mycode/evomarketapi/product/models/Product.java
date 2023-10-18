@@ -60,7 +60,7 @@ public class Product implements Comparable<Product> {
 
     @Column(name = "created_date", nullable = false)
     private LocalDateTime createdDate;
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private Set<OrderDetails> orderDetailsSet = new HashSet<>();
 
