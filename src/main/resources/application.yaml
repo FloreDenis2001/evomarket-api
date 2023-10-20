@@ -23,17 +23,17 @@ server:
 api:
   common:
     version: 1.0.0
-    title: Sample Microservices API
-    description: Description of the API...
+    title: EvoMarket Microservices API
+    description: Management ecommerce platform for selling and buying products and services for the evolution of the human being and the planet Earth in the future and present.
     termsOfService: MY TERMS OF SERVICE
     license: MY LICENSE
     licenseUrl: MY LICENSE URL
     externalDocDesc: MY WIKI PAGE
     externalDocUrl: MY WIKI URL
     contact:
-      name: NAME OF CONTACT
-      url: URL TO CONTACT
-      email: contact@mail.com
+      name: Flore Denis
+      url:
+      email: floredenis907@yahoo.com
   responseCodes:
     ok.description: OK
     badRequest.description: Bad Request, invalid format of the request. See response message for more information

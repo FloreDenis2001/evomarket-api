@@ -26,6 +26,7 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
     Optional<List<Product>> getProductsByCategory(String category);
 
 
+
     @EntityGraph(type = EntityGraph.EntityGraphType.LOAD)
     Optional<List<Product>> getProductsByPriceBetween(Long min, Long max);
 
