@@ -22,7 +22,7 @@ public class OrderCommandServiceImpl implements OrderCommandService {
         this.orderRepo = orderRepo;
     }
 
-
+    @Override
     public void addOrder(OrderDTO orderDTO) {
 
         Order orderAdded = new Order();
@@ -39,7 +39,35 @@ public class OrderCommandServiceImpl implements OrderCommandService {
         orderRepo.saveAndFlush(orderAdded);
     }
 
+    @Override
+    public void updateOrder(OrderDTO orderDTO) {
+        Optional<Order> orderOptional = orderRepo.findById(orderDTO.id());
+        if (orderOptional.isPresent()) {
+            Order orderUpdated = orderOptional.get();
+            orderUpdated.setUserId(orderDTO.userId());
+            orderUpdated.setOrderDetailsSet(orderDTO.orderDetailsSet());
+            orderUpdated.setOrderDate(orderDTO.orderDate());
+            orderUpdated.setOrderStatus(orderDTO.orderStatus());
+            orderUpdated.setOrderPhone(orderDTO.orderPhone());
+            orderUpdated.setOrderEmail(orderDTO.orderEmail());
+            orderUpdated.setOrderAddress(orderDTO.orderAddress());
+            orderUpdated.setShippingAddress(orderDTO.shippingAddress());
+            orderUpdated.setAmmount(orderDTO.ammount());
+            orderRepo.saveAndFlush(orderUpdated);
+        } else {
+            throw new OrderNotFoundException();
+        }
+    }
 
+    @Override
+    public void deleteOrder(long id) {
+        Optional<Order> orderOptional = orderRepo.findById(id);
+        if (orderOptional.isPresent()) {
+            orderRepo.delete(orderOptional.get());
+        } else {
+            throw new OrderNotFoundException();
+        }
+    }
 
 
 }

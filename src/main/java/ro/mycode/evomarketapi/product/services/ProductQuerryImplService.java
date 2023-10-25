@@ -26,10 +26,11 @@ public class ProductQuerryImplService implements ProductQuerryService {
     }
 
     @Override
-    public Product getProductById(Long id) {
-        Product product = productRepo.getProductsById(id).orElseThrow(() -> new ListEmptyException());
+    public Product findById(Long id) {
+        Product product = productRepo.findById(id).orElseThrow(() -> new ListEmptyException());
         return product;
     }
+
 
     @Override
     public Product getProductBySKU(String SKU) {

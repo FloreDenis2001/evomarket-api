@@ -46,7 +46,7 @@ public class ServerControllerProduct {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/id/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Long id) {
-        Optional<Product> product = Optional.of(productQuerryImplService.getProductById(id));
+        Optional<Product> product = Optional.of(productQuerryImplService.findById(id));
         if (product.isEmpty()) {
             throw new ProductNotFoundException();
         } else {

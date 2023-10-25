@@ -20,11 +20,7 @@ public class OrderDetailsCommandServiceImpl implements OrderDetailsCommandServic
 
     @Override
     public void addOrderDetails(OrderDetailsDTO orderDetailsDTO) {
-        Optional<OrderDetails> orderDetailsOptional = orderDetailsRepository.findByOrderIdAndProductIdAndSKU(
-                orderDetailsDTO.order().getId(),
-                orderDetailsDTO.product().getId(),
-                orderDetailsDTO.SKU()
-        );
+        Optional<OrderDetails> orderDetailsOptional =orderDetailsRepository.findByOrderId(orderDetailsDTO.order().getId());
 
 
         if (orderDetailsOptional.isPresent()) {
@@ -43,11 +39,7 @@ public class OrderDetailsCommandServiceImpl implements OrderDetailsCommandServic
 
     @Override
     public void updateOrderDetails(OrderDetailsDTO orderDetailsDTO, UpdateOrderDetailsDTO updateOrderDetailsDTO) {
-        Optional<OrderDetails> orderDetailsOptional = orderDetailsRepository.findByOrderIdAndProductIdAndSKU(
-                orderDetailsDTO.order().getId(),
-                orderDetailsDTO.product().getId(),
-                orderDetailsDTO.SKU()
-        );
+        Optional<OrderDetails> orderDetailsOptional = orderDetailsRepository.findByOrderId(orderDetailsDTO.order().getId());
         if (orderDetailsOptional.isPresent()) {
             OrderDetails orderDetails = orderDetailsOptional.get();
 
@@ -66,11 +58,7 @@ public class OrderDetailsCommandServiceImpl implements OrderDetailsCommandServic
     @Override
     public void deleteOrderDetails(OrderDetailsDTO orderDetailsDTO) {
 
-        Optional<OrderDetails> orderDetailsOptional = orderDetailsRepository.findByOrderIdAndProductIdAndSKU(
-                orderDetailsDTO.order().getId(),
-                orderDetailsDTO.product().getId(),
-                orderDetailsDTO.SKU()
-        );
+        Optional<OrderDetails> orderDetailsOptional = orderDetailsRepository.findByOrderId(orderDetailsDTO.order().getId());
         if (orderDetailsOptional.isPresent()) {
             orderDetailsRepository.delete(orderDetailsOptional.get());
         } else {

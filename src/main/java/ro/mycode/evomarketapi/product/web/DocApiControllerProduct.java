@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/server/api-docs")
+@RequestMapping("/api/v1/server/api-docs/product")
 public class DocApiControllerProduct {
 
     @GetMapping("/all")

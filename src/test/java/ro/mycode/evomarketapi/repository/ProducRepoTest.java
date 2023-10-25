@@ -23,33 +23,37 @@ public class ProducRepoTest {
     ProductRepo productRepo;
 
     @BeforeEach
-    void setUp() {
+    void deleteAll() {
         productRepo.deleteAll();
     }
 
     @Test
     void getAllProductsTest() {
         Product product1 = Product.builder().name("Product1").description("Description1").category("category").price(100L).SKU("SKU17887416").createdDate(LocalDateTime.now()).quantity(59).weight(4).build();
-        productRepo.save(product1);
+        productRepo.saveAndFlush(product1);
 
         assertEquals(1, productRepo.getAllProducts().size());
     }
 
 
-//    @Test
-//    void getProductsByIdTest() {
-//        Product product1 = Product.builder().name("Product1").description("Description1").category("category").price(100L).SKU("SKU17887416").createdDate(LocalDateTime.now()).quantity(59).weight(4).build();
-//        productRepo.save(product1);
-//        assertEquals("Product1", productRepo.getProductsById(1L).get().getName());
-//    }
-//
-//
-//    @Test
-//    void getProductBySKUTest() {
-//        Product product1 = Product.builder().name("Product1").description("Description1").category("category").price(100L).SKU("SKU17887416").createdDate(LocalDateTime.now()).quantity(59).weight(4).build();
-//        productRepo.save(product1);
-//        assertEquals("category", productRepo.getProductBySKU("SKU17887416").get().getCategory());
-//    }
+
+
+    @Test
+    void getProductBySKUTest() {
+        Product product1 = Product.builder().name("Product1").description("Description1").category("category").price(100L).SKU("SKU17887416").createdDate(LocalDateTime.now()).quantity(59).weight(4).build();
+        productRepo.save(product1);
+        assertEquals("category", productRepo.getProductBySKU("SKU17887416").get().getCategory());
+    }
+
+    @Test
+    void getProductByIdTest() {
+        Product product1 = Product.builder().id(1L).name("Product1").description("Description1").category("category").price(100L).SKU("SKU17887416").createdDate(LocalDateTime.now()).quantity(59).weight(4).build();
+        productRepo.saveAndFlush(product1);
+
+        Product p3=productRepo.findById(1L).get();
+        assertEquals("Product1", p3.getName());
+    }
+
 
 
 //    @Test

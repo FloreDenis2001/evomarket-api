@@ -13,7 +13,8 @@ import java.util.Optional;
 public interface ProductRepo extends JpaRepository<Product, Long> {
 
     @EntityGraph(attributePaths = {"orderDetailsSet"}, type = EntityGraph.EntityGraphType.LOAD)
-    Optional<Product> getProductsById(Long id);
+    @Query("SELECT p FROM Product p WHERE p.id = ?1")
+    Optional<Product> findById(Long id);
 
     @EntityGraph(attributePaths = {"orderDetailsSet"}, type = EntityGraph.EntityGraphType.LOAD)
     @Query("SELECT p FROM Product p")

@@ -10,7 +10,7 @@ public interface ProductQuerryService {
 
 
     List<Product> getAllProducts();
-    Product getProductById(Long id);
+    Product findById(Long id);
     Product getProductBySKU(String SKU);
     List<Product> getProductsByCategory(String category);
 
