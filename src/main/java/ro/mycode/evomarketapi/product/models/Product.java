@@ -84,6 +84,7 @@ public class Product implements Comparable<Product> {
     @Override
     public String toString() {
         String text = "Product : " + this.name + "\n";
+        text += "Id:  " + this.id + "\n";
         text += "SKU : " + this.SKU + "\n";
         text += "Price : " + this.price + "\n";
         text += "Quantity : " + this.quantity + "\n";

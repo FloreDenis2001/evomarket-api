@@ -59,6 +59,24 @@ public class EvomarketApiApplication {
         return args -> {
             log.info("Start");
 
+            Product product1 = Product.builder().name("Product1").description("Description1") .category("category").price(100L).SKU("SKU17887416").createdDate(LocalDateTime.now()).quantity(59).weight(4).build();
+
+            Product product2 = Product.builder().name("Product2").description("Description2") .category("category").price(100L).SKU("SKU17738876").createdDate(LocalDateTime.now()).quantity(59).weight(4).build();
+
+            Product product3 = Product.builder().name("Product3").description("Description3") .category("category").price(100L).SKU("SKU17812876").createdDate(LocalDateTime.now()).quantity(59).weight(4).build();
+
+            Product product4 = Product.builder().name("Product4").description("Description4") .category("category").price(100L).SKU("SKU17890876").createdDate(LocalDateTime.now()).quantity(59).weight(4).build();
+
+            Product product5 = Product.builder().name("Product5").description("Description5") .category("category").price(100L).SKU("SKU14428876").createdDate(LocalDateTime.now()).quantity(59).weight(4).build();
+
+            Product product6 = Product.builder().name("Product6").description("Description6") .category("category").price(100L).SKU("SKU17519776").createdDate(LocalDateTime.now()).quantity(59).weight(4).build();
+
+
+
+
+
+            productRepo.saveAllAndFlush(Arrays.asList(product1,product2,product3,product4,product5,product6));
+
 
 
         };

@@ -12,13 +12,6 @@ import java.util.Optional;
 @Repository
 public interface ProductRepo extends JpaRepository<Product, Long> {
 
-    @EntityGraph(attributePaths = {"orderDetailsSet"}, type = EntityGraph.EntityGraphType.LOAD)
-    @Query("SELECT p FROM Product p WHERE p.id = ?1")
-    Optional<Product> findById(Long id);
-
-    @EntityGraph(attributePaths = {"orderDetailsSet"}, type = EntityGraph.EntityGraphType.LOAD)
-    @Query("SELECT p FROM Product p")
-    List<Product> getAllProducts();
 
     @EntityGraph(attributePaths = {"orderDetailsSet"}, type = EntityGraph.EntityGraphType.LOAD)
     Optional<Product> getProductBySKU(String SKU);
