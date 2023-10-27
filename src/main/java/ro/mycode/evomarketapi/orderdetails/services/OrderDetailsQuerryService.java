@@ -15,7 +15,7 @@ public interface OrderDetailsQuerryService {
     Optional<OrderDetails> findById(long id);
 
 
-    Optional<List<OrderDetails>> findBySKU(String SKU);
+
 
 
 

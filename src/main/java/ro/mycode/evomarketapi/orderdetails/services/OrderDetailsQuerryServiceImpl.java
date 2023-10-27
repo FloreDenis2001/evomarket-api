@@ -30,16 +30,6 @@ public class OrderDetailsQuerryServiceImpl implements OrderDetailsQuerryService{
         }
     }
 
-    @Override
-    public Optional<List<OrderDetails>> findBySKU(String SKU) {
-        Optional<List<OrderDetails>> orderDetailsOptional = orderDetailsRepo.findBySKU(SKU);
-        if (orderDetailsOptional.isPresent()) {
-            return orderDetailsOptional;
-        } else {
-            throw new OrderDetailsNotFoundException();
-        }
-    }
-
 
 
 

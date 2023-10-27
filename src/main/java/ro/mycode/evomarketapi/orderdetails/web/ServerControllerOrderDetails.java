@@ -34,12 +34,6 @@ public class ServerControllerOrderDetails {
         return ResponseEntity.ok(orderDetailsQuerryServiceImpl.findById(id).get());
     }
 
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/sku/{SKU}")
-    public ResponseEntity<List<OrderDetails>> getfindBySKU(@PathVariable String SKU) {
-        return ResponseEntity.ok(orderDetailsQuerryServiceImpl.findBySKU(SKU).get());
-    }
-
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/order-id/{orderId}")

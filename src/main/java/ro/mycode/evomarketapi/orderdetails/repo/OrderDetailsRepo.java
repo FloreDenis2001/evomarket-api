@@ -15,7 +15,6 @@ public interface OrderDetailsRepo extends JpaRepository<OrderDetails, Long> {
     Optional<OrderDetails> findById(long id);
 
 
-    Optional<List<OrderDetails>> findBySKU(String SKU);
 
     Optional<OrderDetails>  findByOrderId(long orderId);
 
