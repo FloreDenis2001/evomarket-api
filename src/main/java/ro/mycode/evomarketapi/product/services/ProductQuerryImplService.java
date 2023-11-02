@@ -88,44 +88,8 @@ public class ProductQuerryImplService implements ProductQuerryService {
     public List<Product> getProductsByPriceBetweenAndCategory(Long min, Long max, String category) {
 
         List<Product> products = productRepo.getProductsByPriceBetweenAndCategory(min, max, category).orElseThrow(() -> new ListEmptyException());
-        return null;
-    }
-
-    @Override
-    public List<Product> getProductsByPriceLessThanAndCategoryAndName(Long max, String category, String name) {
-        List<Product> products = productRepo.getProductsByPriceLessThanAndCategoryAndName(max, category, name).orElseThrow(() -> new ListEmptyException());
-
         return products;
     }
 
-    @Override
-    public List<Product> getProductsByPriceGreaterThanAndCategoryAndName(Long min, String category, String name) {
-        List<Product> products = productRepo.getProductsByPriceGreaterThanAndCategoryAndName(min, category, name).orElseThrow(() -> new ListEmptyException());
-        return products;
-    }
 
-    @Override
-    public List<Product> getProductsByPriceBetweenAndCategoryAndName(Long min, Long max, String category, String name) {
-        List<Product> products = productRepo.getProductsByPriceBetweenAndCategoryAndName(min, max, category, name).orElseThrow(() -> new ListEmptyException());
-        return products;
-    }
-
-    @Override
-    public List<Product> getProductsByPriceLessThanAndName(Long max, String name) {
-        List<Product> products = productRepo.getProductsByPriceLessThanAndName(max, name).orElseThrow(() -> new ListEmptyException());
-        return products;
-    }
-
-    @Override
-    public List<Product> getProductsByPriceGreaterThanAndName(Long min, String name) {
-        List<Product> products= productRepo.getProductsByPriceGreaterThanAndName(min, name).orElseThrow(() -> new ListEmptyException());
-        return products;
-    }
-
-    @Override
-    public List<Product> getProductsByPriceBetweenAndName(Long min, Long max, String name) {
-        List<Product> products = productRepo.getProductsByPriceBetweenAndName(min, max, name).orElseThrow(() -> new ListEmptyException());
-
-return null;
-    }
 }

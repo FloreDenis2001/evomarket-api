@@ -27,14 +27,6 @@ public class OrderQuerryServiceImpl implements OrderQuerryService{
         }
     }
 
-    @Override
-    public Optional<List<Order>> findAllByUserId(Long userId) {
-        Optional<List<Order>> orders=orderRepo.findAllByUserId(userId);
-        if (orders.isPresent()) {
-            return orders;
-        } else {
-            throw new OrderNotFoundException();
-        }
-    }
+
 
 }

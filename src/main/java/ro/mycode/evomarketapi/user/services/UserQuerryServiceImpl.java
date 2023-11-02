@@ -3,6 +3,7 @@ package ro.mycode.evomarketapi.user.services;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import ro.mycode.evomarketapi.exceptions.ListEmptyException;
+import ro.mycode.evomarketapi.exceptions.UserNotFound;
 import ro.mycode.evomarketapi.user.models.User;
 import ro.mycode.evomarketapi.user.repo.UserRepo;
 
@@ -28,7 +29,7 @@ public class UserQuerryServiceImpl implements UserQuerryService {
         if (user.isPresent()) {
             return user;
         } else {
-            throw new ListEmptyException();
+            throw new UserNotFound();
         }
     }
 

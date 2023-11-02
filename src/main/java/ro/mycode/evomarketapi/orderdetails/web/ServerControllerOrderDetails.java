@@ -36,7 +36,7 @@ public class ServerControllerOrderDetails {
 
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/order-id/{orderId}")
+    @GetMapping("/orderId/{orderId}")
     public ResponseEntity<OrderDetails> getfindByOrderId(@PathVariable long orderId) {
         return ResponseEntity.ok(orderDetailsQuerryServiceImpl.findByOrderId(orderId).get());
     }

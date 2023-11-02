@@ -74,7 +74,7 @@ public class ProductCommandServiceImpl implements ProductCommandService {
         if (productOptional.isPresent()) {
             productRepo.delete(productOptional.get());
         } else {
-            throw new ProductAlreadyExistException();
+            throw new ProductNotFoundException();
         }
 
     }

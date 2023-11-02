@@ -1,6 +1,7 @@
 package ro.mycode.evomarketapi.orderdetails.models;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -33,6 +34,7 @@ public class OrderDetails implements Comparable<OrderDetails>{
 
     @ManyToOne
     @JoinColumn(name = "product_id")
+    @JsonBackReference
     private Product product;
 
     @Column(name = "quantity", nullable = false)

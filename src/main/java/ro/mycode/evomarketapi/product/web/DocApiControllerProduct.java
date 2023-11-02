@@ -92,64 +92,11 @@ public class DocApiControllerProduct {
     @Operation(summary = "Returnează produsele cu prețul între min și max și din categoria specificată")
     @ApiResponse(responseCode = "200", description = "Succes", content = @Content(mediaType = "text/plain"))
     @ApiResponse(responseCode = "404", description = "Not Found", content = @Content(mediaType = "text/plain"))
-
     public String getProductsByPriceBetweenAndCategory() {
         return "Produsele cu prețul între min și max și din categoria specificată";
     }
 
-    @GetMapping("/price/lessThan/{max}/category/{category}/name/{name}")
-    @Operation(summary = "Returnează produsele cu prețul mai mic decât max, din categoria specificată și cu numele specificat")
-    @ApiResponse(responseCode = "200", description = "Succes", content = @Content(mediaType = "text/plain"))
-    @ApiResponse(responseCode = "404", description = "Not Found", content = @Content(mediaType = "text/plain"))
 
-    public String getProductsByPriceLessThanAndCategoryAndName() {
-        return "Produsele cu prețul mai mic decât max, din categoria specificată și cu numele specificat";
-    }
-
-    @GetMapping("/price/greaterThan/{min}/category/{category}/name/{name}")
-    @Operation(summary = "Returnează produsele cu prețul mai mare decât min, din categoria specificată și cu numele specificat")
-    @ApiResponse(responseCode = "200", description = "Succes", content = @Content(mediaType = "text/plain"))
-    @ApiResponse(responseCode = "404", description = "Not Found", content = @Content(mediaType = "text/plain"))
-
-    public String getProductsByPriceGreaterThanAndCategoryAndName() {
-        return "Produsele cu prețul mai mare decât min, din categoria specificată și cu numele specificat";
-    }
-
-    @GetMapping("/price/between/{min}/{max}/category/{category}/name/{name}")
-    @Operation(summary = "Returnează produsele cu prețul între min și max, din categoria specificată și cu numele specificat")
-    @ApiResponse(responseCode = "200", description = "Succes", content = @Content(mediaType = "text/plain"))
-    @ApiResponse(responseCode = "404", description = "Not Found", content = @Content(mediaType = "text/plain"))
-
-    public String getProductsByPriceBetweenAndCategoryAndName() {
-        return "Produsele cu prețul între min și max, din categoria specificată și cu numele specificat";
-    }
-
-    @GetMapping("/price/lessThan/{max}/name/{name}")
-    @Operation(summary = "Returnează produsele cu prețul mai mic decât max și cu numele specificat")
-    @ApiResponse(responseCode = "200", description = "Succes", content = @Content(mediaType = "text/plain"))
-    @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(mediaType = "text/plain"))
-
-    public String getProductsByPriceLessThanAndName() {
-        return "Produsele cu prețul mai mic decât max și cu numele specificat";
-    }
-
-    @GetMapping("/price/greaterThan/{min}/name/{name}")
-    @Operation(summary = "Returnează produsele cu prețul mai mare decât min și cu numele specificat")
-    @ApiResponse(responseCode = "200", description = "Succes", content = @Content(mediaType = "text/plain"))
-    @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(mediaType = "text/plain"))
-
-    public String getProductsByPriceGreaterThanAndName() {
-        return "Produsele cu prețul mai mare decât min și cu numele specificat";
-    }
-
-    @GetMapping("/price/between/{min}/{max}/name/{name}")
-    @Operation(summary = "Returnează produsele cu prețul între min și max și cu numele specificat")
-    @ApiResponse(responseCode = "200", description = "Succes", content = @Content(mediaType = "text/plain"))
-    @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(mediaType = "text/plain"))
-
-    public String getProductsByPriceBetweenAndName() {
-        return "Produsele cu prețul între min și max și cu numele specificat";
-    }
 
     @PostMapping("/add")
     @Operation(summary = "Adaugă un produs nou")
@@ -164,7 +111,6 @@ public class DocApiControllerProduct {
     @Operation(summary = "Actualizează un produs existent")
     @ApiResponse(responseCode = "202", description = "Accepted", content = @Content(mediaType = "text/plain"))
     @ApiResponse(responseCode = "404", description = "Not Found", content = @Content(mediaType = "text/plain"))
-
     public String updateProduct() {
         return "Actualizează un produs existent";
     }

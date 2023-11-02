@@ -14,6 +14,6 @@ public interface OrderQuerryService {
 
     Optional<Order> findById(Long id);
 
-    Optional<List<Order>> findAllByUserId(Long userId);
+
 
 }

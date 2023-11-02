@@ -25,18 +25,24 @@ public class OrderCommandServiceImpl implements OrderCommandService {
     @Override
     public void addOrder(OrderDTO orderDTO) {
 
-        Order orderAdded = new Order();
-        orderAdded.setUserId(orderDTO.userId());
-        orderAdded.setOrderDetailsSet(orderDTO.orderDetailsSet());
-        orderAdded.setOrderDate(orderDTO.orderDate());
-        orderAdded.setOrderStatus(orderDTO.orderStatus());
-        orderAdded.setOrderPhone(orderDTO.orderPhone());
-        orderAdded.setOrderEmail(orderDTO.orderEmail());
-        orderAdded.setOrderAddress(orderDTO.orderAddress());
-        orderAdded.setShippingAddress(orderDTO.shippingAddress());
-        orderAdded.setAmmount(orderDTO.ammount());
+        Optional<Order> orderOptional = orderRepo.findById(orderDTO.id());
 
-        orderRepo.saveAndFlush(orderAdded);
+        if (orderOptional.isPresent()) {
+            throw new OrderAlreadyExistException();
+        } else {
+            Order orderAdded = new Order();
+            orderAdded.setUserId(orderDTO.userId());
+            orderAdded.setOrderDetailsSet(orderDTO.orderDetailsSet());
+            orderAdded.setOrderDate(orderDTO.orderDate());
+            orderAdded.setOrderStatus(orderDTO.orderStatus());
+            orderAdded.setOrderPhone(orderDTO.orderPhone());
+            orderAdded.setOrderEmail(orderDTO.orderEmail());
+            orderAdded.setOrderAddress(orderDTO.orderAddress());
+            orderAdded.setShippingAddress(orderDTO.shippingAddress());
+            orderAdded.setAmmount(orderDTO.ammount());
+
+            orderRepo.saveAndFlush(orderAdded);
+        }
     }
 
     @Override

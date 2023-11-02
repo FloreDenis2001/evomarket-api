@@ -20,7 +20,7 @@ import java.util.Optional;
 @RequestMapping("/api/v1/product")
 @CrossOrigin
 @Slf4j
-public class ServerControllerProduct {
+public class ServerControllerProduct{
 
     private ProductQuerryImplService productQuerryImplService;
     private ProductCommandServiceImpl productCommandServiceImpl;
@@ -30,6 +30,8 @@ public class ServerControllerProduct {
         this.productQuerryImplService = productQuerryImplService;
         this.productCommandServiceImpl = productCommandServiceImpl;
     }
+
+
 
 
     @ResponseStatus(HttpStatus.OK)
@@ -152,79 +154,6 @@ public class ServerControllerProduct {
         }
     }
 
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/price/lessThan/{max}/category/{category}/name/{name}")
-    public ResponseEntity<List<Product>> getProductsByPriceLessThanAndCategoryAndName(@PathVariable Long max, @PathVariable String category, @PathVariable String name) {
-        Optional<List<Product>> product = Optional.of(productQuerryImplService.getProductsByPriceLessThanAndCategoryAndName(max, category, name));
-        if (product.isEmpty()) {
-            throw new ListEmptyException();
-
-        } else {
-            return ResponseEntity.ok(product.get());
-        }
-    }
-
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/price/greaterThan/{min}/category/{category}/name/{name}")
-    public ResponseEntity<List<Product>> getProductsByPriceGreaterThanAndCategoryAndName(@PathVariable Long min, @PathVariable String category, @PathVariable String name) {
-        Optional<List<Product>> product = Optional.of(productQuerryImplService.getProductsByPriceGreaterThanAndCategoryAndName(min, category, name));
-        if (product.isEmpty()) {
-            throw new ListEmptyException();
-
-        } else {
-            return ResponseEntity.ok(product.get());
-        }
-    }
-
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/price/between/{min}/{max}/category/{category}/name/{name}")
-    public ResponseEntity<List<Product>> getProductsByPriceBetweenAndCategoryAndName(@PathVariable Long min, @PathVariable Long max, @PathVariable String category, @PathVariable String name) {
-        Optional<List<Product>> product = Optional.of(productQuerryImplService.getProductsByPriceBetweenAndCategoryAndName(min, max, category, name));
-        if (product.isEmpty()) {
-            throw new ListEmptyException();
-
-        } else {
-            return ResponseEntity.ok(product.get());
-        }
-    }
-
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/price/lessThan/{max}/name/{name}")
-    public ResponseEntity<List<Product>> getProductsByPriceLessThanAndName(@PathVariable Long max, @PathVariable String name) {
-        Optional<List<Product>> product = Optional.of(productQuerryImplService.getProductsByPriceLessThanAndName(max, name));
-        if (product.isEmpty()) {
-            throw new ListEmptyException();
-
-        } else {
-            return ResponseEntity.ok(product.get());
-        }
-    }
-
-
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/price/greaterThan/{min}/name/{name}")
-    public ResponseEntity<List<Product>> getProductsByPriceGreaterThanAndName(@PathVariable Long min, @PathVariable String name) {
-        Optional<List<Product>> product = Optional.of(productQuerryImplService.getProductsByPriceGreaterThanAndName(min, name));
-        if (product.isEmpty()) {
-            throw new ListEmptyException();
-
-        } else {
-            return ResponseEntity.ok(product.get());
-        }
-    }
-
-
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/price/between/{min}/{max}/name/{name}")
-    public ResponseEntity<List<Product>> getProductsByPriceBetweenAndName(@PathVariable Long min, @PathVariable Long max, @PathVariable String name) {
-        Optional<List<Product>> product = Optional.of(productQuerryImplService.getProductsByPriceBetweenAndName(min, max, name));
-        if (product.isEmpty()) {
-            throw new ListEmptyException();
-
-        } else {
-            return ResponseEntity.ok(product.get());
-        }
-    }
 
     @PostMapping("/add")
     public ResponseEntity<ProductDTO> addProduct(@RequestBody ProductDTO product) {
@@ -232,10 +161,10 @@ public class ServerControllerProduct {
         return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<UpdateProductRequest> updateProduct(@RequestBody String SKU,@RequestBody UpdateProductRequest updateProductRequest) {
-        productCommandServiceImpl.updateProduct(SKU,updateProductRequest);
-        return new ResponseEntity<>(updateProductRequest,HttpStatus.ACCEPTED);
+    @PutMapping("/update/{SKU}")
+    public ResponseEntity<UpdateProductRequest> updateProduct(@PathVariable String SKU, @RequestBody UpdateProductRequest updateProductRequest) {
+        productCommandServiceImpl.updateProduct(SKU, updateProductRequest);
+        return new ResponseEntity<>(updateProductRequest, HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/delete/{SKU}")

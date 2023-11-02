@@ -1,6 +1,7 @@
 package ro.mycode.evomarketapi.orderdetails.services;
 
 import org.springframework.stereotype.Service;
+import ro.mycode.evomarketapi.exceptions.OrderDetailsAlreadyExistsException;
 import ro.mycode.evomarketapi.exceptions.OrderDetailsNotFoundException;
 import ro.mycode.evomarketapi.orderdetails.dto.OrderDetailsDTO;
 import ro.mycode.evomarketapi.orderdetails.dto.UpdateOrderDetailsDTO;
@@ -24,7 +25,7 @@ public class OrderDetailsCommandServiceImpl implements OrderDetailsCommandServic
 
 
         if (orderDetailsOptional.isPresent()) {
-            throw new RuntimeException("OrderDetails already exists");
+            throw new OrderDetailsAlreadyExistsException();
         } else {
             OrderDetails orderDetails = new OrderDetails(
                     orderDetailsDTO.order(),

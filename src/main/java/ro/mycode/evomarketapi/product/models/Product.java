@@ -1,5 +1,6 @@
 package ro.mycode.evomarketapi.product.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -60,8 +61,10 @@ public class Product implements Comparable<Product> {
 
     @Column(name = "created_date", nullable = false)
     private LocalDateTime createdDate;
+
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
+    @JsonManagedReference
     private Set<OrderDetails> orderDetailsSet = new HashSet<>();
 
     public Product(String name, String description, Long price, String sku, int quantity, double weight, String category, double rating, LocalDateTime createdDate) {

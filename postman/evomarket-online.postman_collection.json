@@ -1,0 +1,23 @@
+{
+	"info": {
+		"_postman_id": "d3f2f7b2-de70-4190-9a79-efa923b00dd9",
+		"name": "evomarket-online",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "19379310"
+	},
+	"item": [
+		{
+			"name": "New Folder",
+			"item": []
+		},
+		{
+			"name": "all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/api/v1/product/all"
+			},
+			"response": []
+		}
+	]
+}

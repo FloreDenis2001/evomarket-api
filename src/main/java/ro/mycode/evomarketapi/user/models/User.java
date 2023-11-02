@@ -62,6 +62,7 @@ public class User implements UserDetails {
 
 
     @Column(name = "role", nullable = false)
+    @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
 

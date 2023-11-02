@@ -27,18 +27,7 @@ public interface ProductQuerryService {
 
     List<Product> getProductsByPriceBetweenAndCategory(Long min, Long max, String category);
 
-    List<Product> getProductsByPriceLessThanAndCategoryAndName(Long max, String category, String name);
 
-    List<Product> getProductsByPriceGreaterThanAndCategoryAndName(Long min, String category, String name);
-
-
-    List<Product> getProductsByPriceBetweenAndCategoryAndName(Long min, Long max, String category, String name);
-
-    List<Product> getProductsByPriceLessThanAndName(Long max, String name);
-
-    List<Product> getProductsByPriceGreaterThanAndName(Long min, String name);
-
-    List<Product> getProductsByPriceBetweenAndName(Long min, Long max, String name);
 
 
 

@@ -103,7 +103,7 @@ class OrderRepoTest {
 
 
 
-        assertEquals(true,orderRepo.findAllByUserId(user.getId()).get().size()==1);
+        assertEquals(true,orderRepo.findById(order.getId()).get().getOrderStatus().equals("Pending"));
 
     }
 }

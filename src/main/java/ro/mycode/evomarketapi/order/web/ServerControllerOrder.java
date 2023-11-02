@@ -27,11 +27,7 @@ public class ServerControllerOrder {
     }
 
 
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/all/{userId}")
-    public ResponseEntity<List<Order>> getAllOrdersByUserId(@PathVariable long userId) {
-        return ResponseEntity.ok(orderQuerryServiceImpl.findAllByUserId(userId).get());
-    }
+
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/id/{id}")

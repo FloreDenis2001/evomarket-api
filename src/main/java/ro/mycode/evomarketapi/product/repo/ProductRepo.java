@@ -32,17 +32,4 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
 
     Optional<List<Product>> getProductsByPriceBetweenAndCategory(Long min, Long max, String category);
 
-    Optional<List<Product>> getProductsByPriceLessThanAndCategoryAndName(Long max, String category, String name);
-
-    Optional<List<Product>> getProductsByPriceGreaterThanAndCategoryAndName(Long min, String category, String name);
-
-    Optional<List<Product>>  getProductsByPriceBetweenAndCategoryAndName(Long min, Long max, String category, String name);
-
-    Optional<List<Product>> getProductsByPriceLessThanAndName(Long max, String name);
-
-    Optional<List<Product>>  getProductsByPriceGreaterThanAndName(Long min, String name);
-
-    Optional<List<Product>>getProductsByPriceBetweenAndName(Long min, Long max, String name);
-
-
 }

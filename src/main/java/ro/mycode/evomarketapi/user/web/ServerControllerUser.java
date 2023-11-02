@@ -3,8 +3,10 @@ package ro.mycode.evomarketapi.user.web;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ro.mycode.evomarketapi.user.dto.UserDTO;
+import ro.mycode.evomarketapi.user.models.User;
 import ro.mycode.evomarketapi.user.services.UserCommandServiceImpl;
 import ro.mycode.evomarketapi.user.services.UserQuerryServiceImpl;
 
@@ -25,8 +27,9 @@ public class ServerControllerUser {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/find/{email}")
-    public ResponseEntity<Boolean> findByEmail(@PathVariable String email) {
-        return ResponseEntity.ok(userQuerryServiceImpl.findByEmail(email).isPresent());
+    @PreAuthorize("hasAnyRole('ROLE_CLIENT', 'ROLE_ADMIN')")
+    public ResponseEntity<User> findByEmail(@PathVariable String email) {
+        return ResponseEntity.ok(userQuerryServiceImpl.findByEmail(email).get());
     }
 
     @ResponseStatus(HttpStatus.OK)
