@@ -9,6 +9,7 @@ import ro.mycode.evomarketapi.user.dto.UserDTO;
 import ro.mycode.evomarketapi.user.models.User;
 import ro.mycode.evomarketapi.user.repo.UserRepo;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -34,8 +35,7 @@ public class UserCommandServiceImpl implements UserCommandService {
             x.setPassword(userDTO.password());
             x.setFirstName(userDTO.firstName());
             x.setLastName(userDTO.lastName());
-            x.setRegisteredAt(userDTO.registeredAt());
-            x.setCreatedAt(userDTO.createdAt());
+            x.setRegisteredAt(LocalDateTime.now());
             x.setActive(userDTO.active());
             x.setUserRole(UserRole.CLIENT);
             userRepo.save(x);

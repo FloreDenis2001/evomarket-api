@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 public record UpdateProductRequest(
         String name,
         String description,
+        String sku,
         Long price,
 
         int quantity,
@@ -20,4 +21,5 @@ public record UpdateProductRequest(
 
 
         LocalDateTime createdDate) {
+
 }

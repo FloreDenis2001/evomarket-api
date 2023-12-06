@@ -19,7 +19,7 @@ import ro.mycode.evomarketapi.system.jwt.JWTAuthorizationFilter;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
-import static ro.mycode.evomarketapi.system.utils.Utile.PUBLIC_URLS;
+import static ro.mycode.evomarketapi.utils.Utile.PUBLIC_URLS;
 
 @Configuration
 @EnableWebSecurity

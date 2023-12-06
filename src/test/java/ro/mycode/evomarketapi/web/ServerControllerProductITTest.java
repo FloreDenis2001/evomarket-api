@@ -57,7 +57,7 @@ class ServerControllerProductITTest {
     @Captor
     ArgumentCaptor<Product> productArgumentCaptor;
 
-    private ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
+    private final ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
 
     @Test
@@ -81,7 +81,7 @@ class ServerControllerProductITTest {
 
         mockMvc
                 .perform(get("/api/v1/product/all")
-                        .contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isOk()).
+                        .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).
                 andExpect(jsonPath("$", hasSize(7))).andExpect(content().string(objectMapper.writeValueAsString(List.of(product1, product2, product3, product4, product5, product6, product11))));
 
 
@@ -93,7 +93,7 @@ class ServerControllerProductITTest {
 
         doReturn(Optional.of(product1)).when(productRepo).findById(1L);
         mockMvc.perform(get("/api/v1/product/id/1")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isOk()).andExpect(content().string(objectMapper.writeValueAsString(product1)));
+                .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(content().string(objectMapper.writeValueAsString(product1)));
 
     }
 
@@ -101,9 +101,9 @@ class ServerControllerProductITTest {
     void getProductBySKU() throws Exception {
         Product product1 = Product.builder().id(1L).name("Product1").description("Description1").category("category").price(100L).SKU("SKU17887416").createdDate(LocalDateTime.now()).quantity(59).weight(4).build();
 
-        doReturn(Optional.of(product1)).when(productRepo).getProductBySKU("SKU17887416");
+        doReturn(Optional.of(product1)).when(productRepo).getProductBySku("SKU17887416");
         mockMvc.perform(get("/api/v1/product/sku/SKU17887416")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isOk()).andExpect(content().string(objectMapper.writeValueAsString(product1)));
+                .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(content().string(objectMapper.writeValueAsString(product1)));
 
 
     }
@@ -120,7 +120,7 @@ class ServerControllerProductITTest {
 
         doReturn(Optional.of(List.of(product1, product2, product3, product4))).when(productRepo).getProductsByCategory("category");
         mockMvc.perform(get("/api/v1/product/category/category")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isOk()).andExpect(content().string(objectMapper.writeValueAsString(List.of(product1, product2, product3, product4))));
+                .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(content().string(objectMapper.writeValueAsString(List.of(product1, product2, product3, product4))));
 
     }
 
@@ -135,7 +135,7 @@ class ServerControllerProductITTest {
 
         doReturn(Optional.of(List.of(product3, product4))).when(productRepo).getProductsByPriceBetween(60L, 100L);
         mockMvc.perform(get("/api/v1/product/price/between/60/100")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isOk()).andExpect(content().string(objectMapper.writeValueAsString(List.of(product3, product4))));
+                .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(content().string(objectMapper.writeValueAsString(List.of(product3, product4))));
 
     }
 
@@ -151,7 +151,7 @@ class ServerControllerProductITTest {
 
         doReturn(Optional.of(List.of(product1, product2, product3, product4))).when(productRepo).getProductsByPriceLessThan(100L);
         mockMvc.perform(get("/api/v1/product/price/lessThan/100")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isOk()).andExpect(content().string(objectMapper.writeValueAsString(List.of(product1, product2, product3, product4))));
+                .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(content().string(objectMapper.writeValueAsString(List.of(product1, product2, product3, product4))));
 
     }
 
@@ -168,7 +168,7 @@ class ServerControllerProductITTest {
 
         doReturn(Optional.of(List.of(product1, product2, product3, product4))).when(productRepo).getProductsByPriceGreaterThan(60L);
         mockMvc.perform(get("/api/v1/product/price/greaterThan/60")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isOk()).andExpect(content().string(objectMapper.writeValueAsString(List.of(product1, product2, product3, product4))));
+                .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(content().string(objectMapper.writeValueAsString(List.of(product1, product2, product3, product4))));
 
     }
 
@@ -184,7 +184,7 @@ class ServerControllerProductITTest {
 
         doReturn(Optional.of(List.of(product1, product2, product3, product4))).when(productRepo).getProductsByPriceLessThanAndCategory(100L, "category");
         mockMvc.perform(get("/api/v1/product/price/lessThan/100/category/category")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isOk()).andExpect(content().string(objectMapper.writeValueAsString(List.of(product1, product2, product3, product4))));
+                .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(content().string(objectMapper.writeValueAsString(List.of(product1, product2, product3, product4))));
 
     }
 
@@ -200,7 +200,7 @@ class ServerControllerProductITTest {
 
         doReturn(Optional.of(List.of(product1, product2, product3, product4))).when(productRepo).getProductsByPriceGreaterThanAndCategory(60L, "category");
         mockMvc.perform(get("/api/v1/product/price/greaterThan/60/category/category")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isOk()).andExpect(content().string(objectMapper.writeValueAsString(List.of(product1, product2, product3, product4))));
+                .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(content().string(objectMapper.writeValueAsString(List.of(product1, product2, product3, product4))));
 
 
     }
@@ -217,16 +217,16 @@ class ServerControllerProductITTest {
 
         doReturn(Optional.of(List.of(product1, product2, product3, product4))).when(productRepo).getProductsByPriceBetweenAndCategory(60L, 100L, "category");
         mockMvc.perform(get("/api/v1/product/price/between/60/100/category/category")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isOk()).andExpect(content().string(objectMapper.writeValueAsString(List.of(product1, product2, product3, product4))));
+                .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(content().string(objectMapper.writeValueAsString(List.of(product1, product2, product3, product4))));
 
     }
 
     @Test
     void addProduct() throws Exception {
-        ProductDTO productDTO = ProductDTO.builder().name("ProductDTO").description("Description1").category("category").price(100L).SKU("SK94142135").createdDate(LocalDateTime.now()).quantity(59).weight(4).build();
-        doReturn(Optional.empty()).when(productRepo).getProductBySKU("SKU17887416");
+        ProductDTO productDTO = ProductDTO.builder().name("ProductDTO").description("Description1").category("category").price(100L).SKU("SK94142135").quantity(59).weight(4).build();
+        doReturn(Optional.empty()).when(productRepo).getProductBySku("SKU17887416");
         mockMvc.perform(post("/api/v1/product/add")
-                        .contentType(MediaType.APPLICATION_JSON_UTF8).content(objectMapper.writeValueAsBytes(productDTO)))
+                        .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsBytes(productDTO)))
                 .andExpect(status().isCreated())
         ;
     }
@@ -242,12 +242,12 @@ class ServerControllerProductITTest {
         existingProduct.setDescription("Description1");
         existingProduct.setCategory("category");
         existingProduct.setPrice(100L);
-        existingProduct.setSKU("SKU17887416");
+        existingProduct.setSku("SKU17887416");
         existingProduct.setCreatedDate(LocalDateTime.now());
         existingProduct.setQuantity(59);
         existingProduct.setWeight(4);
 
-        doReturn(Optional.of(existingProduct)).when(productRepo).getProductBySKU("SKU17887416");
+        doReturn(Optional.of(existingProduct)).when(productRepo).getProductBySku("SKU17887416");
 
         mockMvc.perform(put("/api/v1/product/update/SKU17887416")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -262,7 +262,7 @@ class ServerControllerProductITTest {
 
         Product product1 = Product.builder().id(1L).name("Product1").description("Description1").category("category").price(100L).SKU("SKU17887416").createdDate(LocalDateTime.now()).quantity(59).weight(4).build();
 
-        doReturn(Optional.of(product1)).when(productRepo).getProductBySKU("SKU17887416");
+        doReturn(Optional.of(product1)).when(productRepo).getProductBySku("SKU17887416");
 
         mockMvc.perform(delete("/api/v1/product/delete/SKU17887416")
                         .contentType(MediaType.APPLICATION_JSON))

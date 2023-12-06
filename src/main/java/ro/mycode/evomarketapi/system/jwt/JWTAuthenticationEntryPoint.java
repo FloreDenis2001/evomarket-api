@@ -14,7 +14,7 @@ import java.util.Date;
 
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static ro.mycode.evomarketapi.system.utils.Utile.FORBIDDEN_MESSAGE;
+import static ro.mycode.evomarketapi.utils.Utile.FORBIDDEN_MESSAGE;
 
 @Component
 public class JWTAuthenticationEntryPoint extends Http403ForbiddenEntryPoint{

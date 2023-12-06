@@ -1,4 +1,4 @@
-package ro.mycode.evomarketapi.system.utils;
+package ro.mycode.evomarketapi.utils;
 
 public class Utile {
     public static final String USERNAME_ALREADY_EXISTS = "Username already exists";

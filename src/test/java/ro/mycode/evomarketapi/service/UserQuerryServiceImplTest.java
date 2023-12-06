@@ -36,7 +36,6 @@ class UserQuerryServiceImplTest {
                     user.setPhoneNumber("0722222222");
                     user.setUserRole(UserRole.ADMIN);
                     user.setRegisteredAt(LocalDateTime.now());
-                    user.setCreatedAt(LocalDateTime.now());
                     user.setActive(true);
 
         doReturn(Optional.of(user)).when(userRepo).findByEmail("andreipopescu@yahoo.com");

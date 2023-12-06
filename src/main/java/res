@@ -146,7 +146,6 @@ public class ProductRepoTest {
             orderCommandServiceImpl.addOrder(orderDTO);
 
             //todo LEGATURA USER -> ORDER
-
             //
             //            User user=new User();
             //            user.setFirst_name("Andrei");

@@ -34,14 +34,13 @@ public class ServerControllerProduct{
 
 
 
-    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/all")
-    public ResponseEntity<List<Product>> getAllProducts() {
-        Optional<List<Product>> products = Optional.of(productQuerryImplService.getAllProducts());
+    public ResponseEntity<List<ProductDTO>> getAllProducts() {
+        Optional<List<ProductDTO>> products = Optional.of(productQuerryImplService.getAllProducts());
         if (products.isEmpty()) {
             throw new ListEmptyException();
         } else {
-            return ResponseEntity.ok(products.get());
+            return new ResponseEntity<>(products.get(), HttpStatus.OK);
         }
     }
 
@@ -161,9 +160,9 @@ public class ServerControllerProduct{
         return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update/{SKU}")
-    public ResponseEntity<UpdateProductRequest> updateProduct(@PathVariable String SKU, @RequestBody UpdateProductRequest updateProductRequest) {
-        productCommandServiceImpl.updateProduct(SKU, updateProductRequest);
+    @PutMapping("/update")
+    public ResponseEntity<UpdateProductRequest> updateProduct(@RequestBody UpdateProductRequest updateProductRequest) {
+        productCommandServiceImpl.updateProduct(updateProductRequest);
         return new ResponseEntity<>(updateProductRequest, HttpStatus.ACCEPTED);
     }
 

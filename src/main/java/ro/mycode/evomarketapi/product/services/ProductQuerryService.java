@@ -1,6 +1,7 @@
 package ro.mycode.evomarketapi.product.services;
 
 import org.springframework.stereotype.Service;
+import ro.mycode.evomarketapi.product.dto.ProductDTO;
 import ro.mycode.evomarketapi.product.models.Product;
 
 import java.util.List;
@@ -9,9 +10,12 @@ import java.util.List;
 public interface ProductQuerryService {
 
 
-    List<Product> getAllProducts();
+    List<ProductDTO> getAllProducts();
+
     Product findById(Long id);
+
     Product getProductBySKU(String SKU);
+
     List<Product> getProductsByCategory(String category);
 
 
@@ -26,12 +30,6 @@ public interface ProductQuerryService {
     List<Product> getProductsByPriceGreaterThanAndCategory(Long min, String category);
 
     List<Product> getProductsByPriceBetweenAndCategory(Long min, Long max, String category);
-
-
-
-
-
-
 
 
 }

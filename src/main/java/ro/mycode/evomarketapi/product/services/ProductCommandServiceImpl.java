@@ -1,5 +1,6 @@
 package ro.mycode.evomarketapi.product.services;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import ro.mycode.evomarketapi.exceptions.ProductAlreadyExistException;
 import ro.mycode.evomarketapi.exceptions.ProductNotFoundException;
@@ -7,11 +8,14 @@ import ro.mycode.evomarketapi.product.dto.ProductDTO;
 import ro.mycode.evomarketapi.product.dto.UpdateProductRequest;
 import ro.mycode.evomarketapi.product.models.Product;
 import ro.mycode.evomarketapi.product.repo.ProductRepo;
+import ro.mycode.evomarketapi.utils.SKUGenerator;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 
 @Service
+@Transactional
 public class ProductCommandServiceImpl implements ProductCommandService {
 
 
@@ -24,9 +28,9 @@ public class ProductCommandServiceImpl implements ProductCommandService {
 
     @Override
     public void addProduct(ProductDTO productDTO) {
-        Optional<Product> productOptional = productRepo.getProductBySKU(productDTO.SKU());
+        Optional<Product> productOptional = productRepo.getProductBySku(productDTO.getSKU());
         if (productOptional.isEmpty()) {
-            Product product = new Product(productDTO.name(), productDTO.description(), productDTO.price(), productDTO.SKU(), productDTO.quantity(), productDTO.weight(), productDTO.category(), productDTO.rating(), productDTO.createdDate());
+            Product product=Product.builder().name(productDTO.getName()).description(productDTO.getDescription()).category(productDTO.getCategory()).price(productDTO.getPrice()).sku(SKUGenerator.generateUniqueSKU()).quantity(productDTO.getQuantity()).weight(productDTO.getWeight()).rating(0).createdDate(LocalDateTime.now()).build();
             productRepo.save(product);
         } else {
             throw new ProductAlreadyExistException();
@@ -34,8 +38,8 @@ public class ProductCommandServiceImpl implements ProductCommandService {
     }
 
     @Override
-    public void updateProduct(String SKU, UpdateProductRequest updateProductRequest){
-        Optional<Product> productOptional = productRepo.getProductBySKU(SKU);
+    public void updateProduct(UpdateProductRequest updateProductRequest){
+        Optional<Product> productOptional = productRepo.getProductBySku(updateProductRequest.sku());
         if (productOptional.isPresent()) {
 
             Product product = productOptional.get();
@@ -70,7 +74,7 @@ public class ProductCommandServiceImpl implements ProductCommandService {
     @Override
     public void deleteProduct(String SKU) {
 
-        Optional<Product> productOptional = productRepo.getProductBySKU(SKU);
+        Optional<Product> productOptional = productRepo.getProductBySku(SKU);
         if (productOptional.isPresent()) {
             productRepo.delete(productOptional.get());
         } else {

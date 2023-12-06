@@ -10,32 +10,21 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
-import ro.mycode.evomarketapi.order.dto.OrderDTO;
-import ro.mycode.evomarketapi.order.models.Order;
 import ro.mycode.evomarketapi.order.repo.OrderRepo;
 import ro.mycode.evomarketapi.order.services.OrderCommandServiceImpl;
 import ro.mycode.evomarketapi.order.services.OrderQuerryServiceImpl;
-import ro.mycode.evomarketapi.orderdetails.models.OrderDetails;
 import ro.mycode.evomarketapi.orderdetails.repo.OrderDetailsRepo;
 import ro.mycode.evomarketapi.orderdetails.services.OrderDetailsCommandServiceImpl;
 import ro.mycode.evomarketapi.orderdetails.services.OrderDetailsQuerryService;
-import ro.mycode.evomarketapi.product.models.Product;
 import ro.mycode.evomarketapi.product.repo.ProductRepo;
 import ro.mycode.evomarketapi.product.services.ProductCommandServiceImpl;
 import ro.mycode.evomarketapi.product.services.ProductQuerryImplService;
-import ro.mycode.evomarketapi.system.security.UserRole;
-import ro.mycode.evomarketapi.user.dto.UserDTO;
-import ro.mycode.evomarketapi.user.models.User;
 import ro.mycode.evomarketapi.user.repo.UserRepo;
-import ro.mycode.evomarketapi.user.services.UserCommandService;
 import ro.mycode.evomarketapi.user.services.UserCommandServiceImpl;
 import ro.mycode.evomarketapi.user.services.UserQuerryServiceImpl;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.List;
 
-@Slf4j
 @SpringBootApplication
 public class EvomarketApiApplication {
 
@@ -73,7 +62,7 @@ public class EvomarketApiApplication {
         UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.setAllowCredentials(true);
-        corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "http://localhost:4200", "http://localhost"));
+        corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:3000","http://localhost"));
         corsConfiguration.setAllowedHeaders(Arrays.asList("Origin", "Access-Control-Allow-Origin", "Content-Type",
                 "Accept", "Jwt-Token", "Authorization", "Origin, Accept", "X-Requested-With",
                 "Access-Control-Request-Method", "Access-Control-Request-Headers", "Access-Control-Allow-Headers"));

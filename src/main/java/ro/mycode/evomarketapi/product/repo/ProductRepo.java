@@ -2,7 +2,6 @@ package ro.mycode.evomarketapi.product.repo;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ro.mycode.evomarketapi.product.models.Product;
 
@@ -14,7 +13,8 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
 
 
     @EntityGraph(attributePaths = {"orderDetailsSet"}, type = EntityGraph.EntityGraphType.LOAD)
-    Optional<Product> getProductBySKU(String SKU);
+
+    Optional<Product> getProductBySku(String SKU);
 
     Optional<List<Product>> getProductsByCategory(String category);
 

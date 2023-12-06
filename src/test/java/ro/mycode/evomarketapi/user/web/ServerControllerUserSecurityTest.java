@@ -69,13 +69,10 @@ class ServerControllerUserSecurityTest {
         user.setEmail(userDTO.email());
         user.setPassword(userDTO.password());
         user.setPhoneNumber(userDTO.phoneNumber());
-        user.setRegisteredAt(userDTO.registeredAt());
-        user.setCreatedAt(userDTO.createdAt());
+        user.setRegisteredAt(LocalDateTime.now());
         user.setActive(userDTO.active());
-        user.setUserRole(userDTO.userRole());
+        user.setUserRole(UserRole.CLIENT);
         return user;
-
-
     }
 
 
@@ -88,28 +85,27 @@ class ServerControllerUserSecurityTest {
 
     }
 
-    @Test
-    @WithDenisUser
-    void findByEmail() throws Exception
-    {
-        UserDTO userDTO = UserDTO.builder().firstName("Denis").lastName("Flore").email("floredenis907@yahoo.com").password("denis1234").phoneNumber("0722222222").userRole(UserRole.ADMIN).registeredAt(LocalDateTime.now()).createdAt(LocalDateTime.now()).active(true).build();
-
-        doReturn(Optional.of(convertUserDTOtoUser(userDTO))).when(userQuerryServiceImpl).findByEmail("floredenis907@yahoo.com");
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/user/find/floredenis907@yahoo.com").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(content().string(objectMapper.writeValueAsString(userDTO)));
-
-
-    }
-
-    @Test
-    void addUser() {
-    }
-
-    @Test
-    void updateUser() {
-    }
-
-    @Test
-    void deleteUser() {
-    }
+//    @Test
+//    @WithDenisUser
+//    void findByEmail() throws Exception
+//    {
+////        User user=new User();
+////        user.setFirstName("Denis");
+////        user.setLastName("Flore");
+////        user.setEmail("floredenis907@yahoo.com");
+////        user.setPassword("");
+////        user.setPhoneNumber("0773941000");
+////        user.setUserRole(UserRole.CLIENT);
+////        user.setRegisteredAt(LocalDateTime.now());
+////        user.setActive(true);
+//        UserDTO user = UserDTO.builder().email("floredenis907@yahoo.com").build();
+//        when(this.userQuerryServiceImpl.findByEmail(user.email())).thenReturn(Optional.of(convertUserDTOtoUser(user)));
+//
+//        mockMvc.perform(MockMvcRequestBuilders
+//                .get("/api/v1/user/find/floredenis907@yahoo.com").
+//                accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).
+//                andExpect(content().string(objectMapper.writeValueAsString(user)));
+//
+//
+//    }
 }

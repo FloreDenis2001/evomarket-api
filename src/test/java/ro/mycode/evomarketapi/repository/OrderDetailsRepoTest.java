@@ -60,7 +60,6 @@ class OrderDetailsRepoTest {
         user.setPhoneNumber("0722222222");
         user.setUserRole(UserRole.ADMIN);
         user.setRegisteredAt(LocalDateTime.now());
-        user.setCreatedAt(LocalDateTime.now());
         user.setActive(true);
 
         userRepo.saveAndFlush(user);
@@ -105,7 +104,6 @@ class OrderDetailsRepoTest {
         user.setPhoneNumber("0722222222");
         user.setUserRole(UserRole.ADMIN);
         user.setRegisteredAt(LocalDateTime.now());
-        user.setCreatedAt(LocalDateTime.now());
         user.setActive(true);
 
         userRepo.saveAndFlush(user);

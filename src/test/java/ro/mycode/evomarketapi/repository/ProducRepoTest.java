@@ -3,11 +3,9 @@ package ro.mycode.evomarketapi.repository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
 import ro.mycode.evomarketapi.EvomarketApiApplication;
 import ro.mycode.evomarketapi.product.models.Product;
 import ro.mycode.evomarketapi.product.repo.ProductRepo;
@@ -43,7 +41,7 @@ public class ProducRepoTest {
     void getProductBySKUTest() {
         Product product1 = Product.builder().name("Product1").description("Description1").category("category").price(100L).SKU("SKU17887416").createdDate(LocalDateTime.now()).quantity(59).weight(4).build();
         productRepo.save(product1);
-        assertEquals("category", productRepo.getProductBySKU("SKU17887416").get().getCategory());
+        assertEquals("category", productRepo.getProductBySku("SKU17887416").get().getCategory());
     }
 
     @Test

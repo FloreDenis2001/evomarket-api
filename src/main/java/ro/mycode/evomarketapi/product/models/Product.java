@@ -31,10 +31,10 @@ public class Product implements Comparable<Product> {
     private String name;
 
 
-    @Column(name = "SKU", nullable = false, unique = true)
+    @Column(name = "sku", nullable = false, unique = true)
     @Size(min = 8, max = 12, message = "SKU must be between 8 and 12 characters")
 
-    private String SKU;
+    private String sku;
 
     @Column(name = "price", nullable = false)
     private Long price;
@@ -67,17 +67,7 @@ public class Product implements Comparable<Product> {
     @JsonManagedReference
     private Set<OrderDetails> orderDetailsSet = new HashSet<>();
 
-    public Product(String name, String description, Long price, String sku, int quantity, double weight, String category, double rating, LocalDateTime createdDate) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.SKU = sku;
-        this.quantity = quantity;
-        this.weight = weight;
-        this.category = category;
-        this.rating = rating;
-        this.createdDate = createdDate;
-    }
+
 
     public void addOrderDetails(OrderDetails orderDetails) {
         this.orderDetailsSet.add(orderDetails);
@@ -88,7 +78,7 @@ public class Product implements Comparable<Product> {
     public String toString() {
         String text = "Product : " + this.name + "\n";
         text += "Id:  " + this.id + "\n";
-        text += "SKU : " + this.SKU + "\n";
+        text += "SKU : " + this.sku + "\n";
         text += "Price : " + this.price + "\n";
         text += "Quantity : " + this.quantity + "\n";
         text += "Weight : " + this.weight + "\n";
@@ -101,7 +91,7 @@ public class Product implements Comparable<Product> {
     @Override
     public boolean equals(Object o) {
         Product p = (Product) o;
-        return this.SKU.equals(p.SKU);
+        return this.sku.equals(p.sku);
     }
 
     @Override

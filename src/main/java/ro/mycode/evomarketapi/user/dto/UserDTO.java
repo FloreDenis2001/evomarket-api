@@ -8,5 +8,5 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @Builder
-public record UserDTO(String firstName, String lastName, String phoneNumber, String email, String password, UserRole userRole, LocalDateTime registeredAt, LocalDateTime createdAt, boolean active, Set<Order> orderSet) {
+public record UserDTO(String firstName, String lastName, String phoneNumber, String email, String password, boolean active, Set<Order> orderSet) {
 }

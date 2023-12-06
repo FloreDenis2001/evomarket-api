@@ -1,6 +1,5 @@
 package ro.mycode.evomarketapi.service;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -8,13 +7,10 @@ import org.mockito.Captor;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
-import ro.mycode.evomarketapi.EvomarketApiApplication;
 import ro.mycode.evomarketapi.exceptions.ListEmptyException;
 import ro.mycode.evomarketapi.exceptions.ProductNotFoundException;
 import ro.mycode.evomarketapi.product.models.Product;
 import ro.mycode.evomarketapi.product.repo.ProductRepo;
-import ro.mycode.evomarketapi.product.services.ProductCommandServiceImpl;
 import ro.mycode.evomarketapi.product.services.ProductQuerryImplService;
 
 import java.time.LocalDateTime;
@@ -88,7 +84,7 @@ class ProductQuerryImplServiceTest {
         Product product4 = Product.builder().name("Product4").description("Description4").category("category").price(400L).SKU("SKU17887419").createdDate(LocalDateTime.now()).quantity(59).weight(4).build();
 
 
-        doReturn(Optional.of(product4)).when(productRepo).getProductBySKU("SKU17887419");
+        doReturn(Optional.of(product4)).when(productRepo).getProductBySku("SKU17887419");
 
 
         assertEquals("Product4", productQuerryImplService.getProductBySKU("SKU17887419").getName());
@@ -96,7 +92,7 @@ class ProductQuerryImplServiceTest {
 
     @Test
     void getProductBySKUException(){
-        doReturn(Optional.empty()).when(productRepo).getProductBySKU("SKU17887419");
+        doReturn(Optional.empty()).when(productRepo).getProductBySku("SKU17887419");
         assertThrows(ProductNotFoundException.class, () -> productQuerryImplService.getProductBySKU("SKU17887419"));
     }
 

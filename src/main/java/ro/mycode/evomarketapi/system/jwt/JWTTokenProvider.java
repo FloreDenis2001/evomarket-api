@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static ro.mycode.evomarketapi.system.utils.Utile.*;
+import static ro.mycode.evomarketapi.utils.Utile.*;
 
 
 @Component

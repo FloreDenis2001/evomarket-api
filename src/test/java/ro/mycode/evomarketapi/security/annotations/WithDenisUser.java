@@ -16,7 +16,7 @@ public @interface WithDenisUser {
     String lastName() default "Flore";
     String firstName() default "Denis";
     String email() default "floredenis907@yahoo.com";
-    String password() default "";
+    String password() default "parola";
     String phoneNumber() default "0773941000";
     String[] authorities() default {"ROLE_CLIENT"};
 

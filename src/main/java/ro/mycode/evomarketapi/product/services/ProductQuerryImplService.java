@@ -3,9 +3,11 @@ package ro.mycode.evomarketapi.product.services;
 import org.springframework.stereotype.Service;
 import ro.mycode.evomarketapi.exceptions.ListEmptyException;
 import ro.mycode.evomarketapi.exceptions.ProductNotFoundException;
+import ro.mycode.evomarketapi.product.dto.ProductDTO;
 import ro.mycode.evomarketapi.product.models.Product;
 import ro.mycode.evomarketapi.product.repo.ProductRepo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,12 +21,16 @@ public class ProductQuerryImplService implements ProductQuerryService {
     }
 
     @Override
-    public List<Product> getAllProducts() {
+    public List<ProductDTO> getAllProducts() {
         List<Product> products = productRepo.findAll();
-        if (products.isEmpty()) {
+        List<ProductDTO> productDTOList=new ArrayList<>();
+        for (  Product product:products) {
+            productDTOList.add(ProductDTO.fromProduct(product));
+        }
+        if (productDTOList.isEmpty()) {
             throw new ListEmptyException();
         }
-        return products;
+        return productDTOList;
     }
 
     @Override
@@ -40,7 +46,7 @@ public class ProductQuerryImplService implements ProductQuerryService {
 
     @Override
     public Product getProductBySKU(String SKU) {
-        Product product = productRepo.getProductBySKU(SKU).orElseThrow(() -> new ProductNotFoundException());
+        Product product = productRepo.getProductBySku(SKU).orElseThrow(() -> new ProductNotFoundException());
         return product;
     }
 

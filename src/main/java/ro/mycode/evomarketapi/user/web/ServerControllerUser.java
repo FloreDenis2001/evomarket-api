@@ -25,6 +25,8 @@ public class ServerControllerUser {
         this.userQuerryServiceImpl = userQuerryServiceImpl;
     }
 
+    
+
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/find/{email}")
     @PreAuthorize("hasAnyRole('ROLE_CLIENT', 'ROLE_ADMIN')")

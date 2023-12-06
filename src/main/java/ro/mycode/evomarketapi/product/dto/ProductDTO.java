@@ -1,24 +1,45 @@
 package ro.mycode.evomarketapi.product.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import ro.mycode.evomarketapi.product.models.Product;
 
-import java.time.LocalDateTime;
 
-
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public record ProductDTO(
-        String name,
-        String description,
-        Long price,
-        String SKU,
+public class ProductDTO {
 
-        int quantity,
+    private String name;
 
-        double weight,
+    private String description;
 
-        String category,
+    private Long price;
 
-        double rating,
+    private String SKU;
 
-        LocalDateTime createdDate) {
+    private int quantity;
+
+    private double weight;
+
+    private String category;
+
+    private double rating;
+
+    public static ProductDTO fromProduct(Product product){
+        return ProductDTO.builder()
+                .name(product.getName())
+                .description(product.getDescription())
+                .price(product.getPrice())
+                .SKU(product.getSku())
+                .quantity(product.getQuantity())
+                .weight(product.getWeight())
+                .category(product.getCategory())
+                .rating(product.getRating())
+                .build();
+    }
+
 }

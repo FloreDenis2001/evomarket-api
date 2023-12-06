@@ -15,7 +15,7 @@ import java.util.List;
 
 import static com.google.common.net.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpStatus.OK;
-import static ro.mycode.evomarketapi.system.utils.Utile.TOKEN_PREFIX;
+import static ro.mycode.evomarketapi.utils.Utile.TOKEN_PREFIX;
 
 @Component
 public class JWTAuthorizationFilter extends OncePerRequestFilter {

@@ -10,6 +10,6 @@ import ro.mycode.evomarketapi.product.dto.UpdateProductRequest;
 @Transactional
 public interface ProductCommandService {
     void addProduct(ProductDTO productDTO);
-    void updateProduct(String SKU, UpdateProductRequest updateProductRequest);
+    void updateProduct(UpdateProductRequest updateProductRequest);
     void deleteProduct(String SKU);
 }

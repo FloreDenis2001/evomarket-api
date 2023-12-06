@@ -27,7 +27,6 @@ public class WithDenisUserSecurityContextFactory implements WithSecurityContextF
         user.setPhoneNumber(withDenisUser.phoneNumber());
         user.setActive(true);
         user.setRegisteredAt(LocalDateTime.now());
-        user.setCreatedAt(LocalDateTime.now());
 
         user.setUserRole(UserRole.CLIENT);
 

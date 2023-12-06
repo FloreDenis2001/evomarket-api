@@ -69,25 +69,11 @@ public class User implements UserDetails {
     @Column(name = "registered_at", nullable = false)
     private LocalDateTime registeredAt;
 
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
+
 
     @Column(name = "active", nullable = false)
     private boolean active;
 
-    public User(Long id, String firstName, String lastName, String phoneNumber, String email, String password, UserRole userRole, LocalDateTime registeredAt, LocalDateTime createdAt, boolean active, Set<Order> orderSet) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.password = new BCryptPasswordEncoder().encode(password);
-        this.userRole = userRole;
-        this.registeredAt = registeredAt;
-        this.createdAt = createdAt;
-        this.active = active;
-        this.orderSet = orderSet;
-    }
 
     public void setPassword(String password) {
         this.password =new BCryptPasswordEncoder().encode(password);
@@ -114,7 +100,6 @@ public class User implements UserDetails {
         text += "Role : " + this.userRole + "\n";
         text += "Active : " + this.active + "\n";
         text += "Registered At : " + this.registeredAt + "\n";
-        text += "Created At : " + this.createdAt + "\n";
 
 
         return text;

@@ -1,4 +1,4 @@
-package ro.mycode.evomarketapi.system.utils;
+package ro.mycode.evomarketapi.utils;
 
 import ro.mycode.evomarketapi.order.dto.OrderDTO;
 import ro.mycode.evomarketapi.order.models.Order;
@@ -7,21 +7,24 @@ import ro.mycode.evomarketapi.orderdetails.models.OrderDetails;
 import ro.mycode.evomarketapi.product.dto.ProductDTO;
 import ro.mycode.evomarketapi.product.dto.UpdateProductRequest;
 import ro.mycode.evomarketapi.product.models.Product;
+import ro.mycode.evomarketapi.system.security.UserRole;
 import ro.mycode.evomarketapi.user.dto.UserDTO;
 import ro.mycode.evomarketapi.user.models.User;
+
+import java.time.LocalDateTime;
 
 public class Mapper {
 
     public Product covertProductDTOtoProduct(ProductDTO productdTO) {
         Product product = new Product();
-        product.setName(productdTO.name());
-        product.setDescription(productdTO.description());
-        product.setCategory(productdTO.category());
-        product.setPrice(productdTO.price());
-        product.setSKU(productdTO.SKU());
-        product.setCreatedDate(productdTO.createdDate());
-        product.setQuantity(productdTO.quantity());
-        product.setWeight(productdTO.weight());
+        product.setName(productdTO.getName());
+        product.setDescription(productdTO.getDescription());
+        product.setCategory(productdTO.getCategory());
+        product.setPrice(productdTO.getPrice());
+        product.setSku(productdTO.getSKU());
+        product.setCreatedDate(LocalDateTime.now());
+        product.setQuantity(productdTO.getQuantity());
+        product.setWeight(productdTO.getWeight());
         return product;
     }
 
@@ -52,7 +55,7 @@ public class Mapper {
         Order order = new Order();
         order.setAmmount(orderDTO.ammount());
         order.setOrderAddress(orderDTO.orderAddress());
-        order.setOrderDate(orderDTO.orderDate());
+        order.setOrderDate(LocalDateTime.now());
         order.setOrderEmail(orderDTO.orderEmail());
         order.setOrderPhone(orderDTO.orderPhone());
         order.setOrderStatus(orderDTO.orderStatus());
@@ -67,10 +70,9 @@ public class Mapper {
         user.setEmail(userDTO.email());
         user.setPassword(userDTO.password());
         user.setPhoneNumber(userDTO.phoneNumber());
-        user.setRegisteredAt(userDTO.registeredAt());
-        user.setCreatedAt(userDTO.createdAt());
+        user.setRegisteredAt(LocalDateTime.now());
         user.setActive(userDTO.active());
-        user.setUserRole(userDTO.userRole());
+        user.setUserRole(UserRole.CLIENT);
         return user;
 
 

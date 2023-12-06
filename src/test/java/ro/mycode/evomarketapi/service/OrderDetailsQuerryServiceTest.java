@@ -9,7 +9,6 @@ import ro.mycode.evomarketapi.exceptions.OrderDetailsNotFoundException;
 import ro.mycode.evomarketapi.order.models.Order;
 import ro.mycode.evomarketapi.orderdetails.models.OrderDetails;
 import ro.mycode.evomarketapi.orderdetails.repo.OrderDetailsRepo;
-import ro.mycode.evomarketapi.orderdetails.services.OrderDetailsQuerryService;
 import ro.mycode.evomarketapi.orderdetails.services.OrderDetailsQuerryServiceImpl;
 import ro.mycode.evomarketapi.product.models.Product;
 
@@ -42,7 +41,7 @@ class OrderDetailsQuerryServiceTest {
 
         Product product1 = Product.builder().name("Product1").description("Description1").category("category").price(100L).SKU("SKU17887416").createdDate(LocalDateTime.now()).quantity(59).weight(4).build();
 
-        OrderDetails orderDetails1 = OrderDetails.builder().order(order).product(product1).price(100L).quantity(1).SKU(product1.getSKU()).build();
+        OrderDetails orderDetails1 = OrderDetails.builder().order(order).product(product1).price(100L).quantity(1).SKU(product1.getSku()).build();
         doReturn(Optional.of(orderDetails1)).when(orderDetailsRepo).findById(1L);
 
         assertEquals("Product1", orderDetailsQuerryServiceImpl.findById(1L).get().getProduct().getName());
@@ -68,7 +67,7 @@ class OrderDetailsQuerryServiceTest {
 
         Product product1 = Product.builder().name("Product1").description("Description1").category("category").price(100L).SKU("SKU17887416").createdDate(LocalDateTime.now()).quantity(59).weight(4).build();
 
-        OrderDetails orderDetails1 = OrderDetails.builder().order(order).product(product1).price(100L).quantity(1).SKU(product1.getSKU()).build();
+        OrderDetails orderDetails1 = OrderDetails.builder().order(order).product(product1).price(100L).quantity(1).SKU(product1.getSku()).build();
         doReturn(Optional.of(orderDetails1)).when(orderDetailsRepo).findByOrderId(1L);
 
         assertEquals("order@example.com", orderDetailsQuerryServiceImpl.findByOrderId(1L).get().getOrder().getOrderEmail());

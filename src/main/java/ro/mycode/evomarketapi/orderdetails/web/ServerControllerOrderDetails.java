@@ -13,7 +13,7 @@ import ro.mycode.evomarketapi.orderdetails.services.OrderDetailsQuerryServiceImp
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/orderdetails")
+@RequestMapping("/api/v1/order-details")
 @CrossOrigin
 @Slf4j
 public class ServerControllerOrderDetails {

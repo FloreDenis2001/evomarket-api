@@ -9,6 +9,7 @@ import ro.mycode.evomarketapi.order.dto.OrderDTO;
 import ro.mycode.evomarketapi.order.models.Order;
 import ro.mycode.evomarketapi.order.repo.OrderRepo;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -33,7 +34,7 @@ public class OrderCommandServiceImpl implements OrderCommandService {
             Order orderAdded = new Order();
             orderAdded.setUserId(orderDTO.userId());
             orderAdded.setOrderDetailsSet(orderDTO.orderDetailsSet());
-            orderAdded.setOrderDate(orderDTO.orderDate());
+            orderAdded.setOrderDate(LocalDateTime.now());
             orderAdded.setOrderStatus(orderDTO.orderStatus());
             orderAdded.setOrderPhone(orderDTO.orderPhone());
             orderAdded.setOrderEmail(orderDTO.orderEmail());
@@ -52,7 +53,7 @@ public class OrderCommandServiceImpl implements OrderCommandService {
             Order orderUpdated = orderOptional.get();
             orderUpdated.setUserId(orderDTO.userId());
             orderUpdated.setOrderDetailsSet(orderDTO.orderDetailsSet());
-            orderUpdated.setOrderDate(orderDTO.orderDate());
+            orderUpdated.setOrderDate(LocalDateTime.now());
             orderUpdated.setOrderStatus(orderDTO.orderStatus());
             orderUpdated.setOrderPhone(orderDTO.orderPhone());
             orderUpdated.setOrderEmail(orderDTO.orderEmail());
