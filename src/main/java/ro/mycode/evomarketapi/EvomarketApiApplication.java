@@ -19,10 +19,14 @@ import ro.mycode.evomarketapi.orderdetails.services.OrderDetailsQuerryService;
 import ro.mycode.evomarketapi.product.repo.ProductRepo;
 import ro.mycode.evomarketapi.product.services.ProductCommandServiceImpl;
 import ro.mycode.evomarketapi.product.services.ProductQuerryImplService;
+import ro.mycode.evomarketapi.system.security.UserRole;
+import ro.mycode.evomarketapi.user.dto.UserDTO;
+import ro.mycode.evomarketapi.user.models.User;
 import ro.mycode.evomarketapi.user.repo.UserRepo;
 import ro.mycode.evomarketapi.user.services.UserCommandServiceImpl;
 import ro.mycode.evomarketapi.user.services.UserQuerryServiceImpl;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 @SpringBootApplication
@@ -46,9 +50,16 @@ public class EvomarketApiApplication {
                                         ProductRepo productRepo, OrderRepo orderRepo, OrderDetailsRepo orderDetailsRepo,
                                         UserCommandServiceImpl userCommandServiceImpl, UserQuerryServiceImpl userQuerryServiceImpl) {
         return args -> {
-
-
-
+//                        User user=new User();
+//                        user.setFirstName("Andrei");
+//                        user.setLastName("Popescu");
+//                        user.setEmail("andreipopescu@yahoo.com");
+//                        user.setPassword("andrei1234");
+//                        user.setPhoneNumber("0722222222");
+//                        user.setUserRole(UserRole.ADMIN);
+//                        user.setRegisteredAt(LocalDateTime.now());
+//                        user.setActive(false);
+//                        userRepo.saveAndFlush(user);
         };
     }
 

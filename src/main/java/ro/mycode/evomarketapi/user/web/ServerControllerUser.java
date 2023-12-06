@@ -1,11 +1,18 @@
 package ro.mycode.evomarketapi.user.web;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
+import ro.mycode.evomarketapi.system.jwt.JWTTokenProvider;
+import ro.mycode.evomarketapi.user.dto.RegisterResponse;
 import ro.mycode.evomarketapi.user.dto.UserDTO;
+import ro.mycode.evomarketapi.user.dto.LoginResponse;
 import ro.mycode.evomarketapi.user.models.User;
 import ro.mycode.evomarketapi.user.services.UserCommandServiceImpl;
 import ro.mycode.evomarketapi.user.services.UserQuerryServiceImpl;
@@ -13,6 +20,7 @@ import ro.mycode.evomarketapi.user.services.UserQuerryServiceImpl;
 @RestController
 @CrossOrigin
 @RequestMapping("/api/v1/user")
+@AllArgsConstructor
 @Slf4j
 public class ServerControllerUser {
 
@@ -20,12 +28,33 @@ public class ServerControllerUser {
 
     private UserQuerryServiceImpl userQuerryServiceImpl;
 
-    public ServerControllerUser(UserCommandServiceImpl userCommandServiceImpl, UserQuerryServiceImpl userQuerryServiceImpl) {
-        this.userCommandServiceImpl = userCommandServiceImpl;
-        this.userQuerryServiceImpl = userQuerryServiceImpl;
+    private AuthenticationManager authentificateManager ;
+
+    private JWTTokenProvider jwtTokenProvider;
+
+
+    private void authenticate(String email, String password) {
+        authentificateManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
     }
 
-    
+    private HttpHeaders getJwtHeader(User user) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.AUTHORIZATION, jwtTokenProvider.generateJWTToken(user));
+        return headers;
+    }
+
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@RequestBody UserDTO userDTO) {
+        authenticate(userDTO.email(), userDTO.password());
+        User loginUser = userQuerryServiceImpl.findByEmail(userDTO.email()).get();
+        HttpHeaders jwtHeader = getJwtHeader(loginUser);
+        LoginResponse loginResponse = new LoginResponse(loginUser.getId(), loginUser.getEmail(), jwtHeader.getFirst(HttpHeaders.AUTHORIZATION), loginUser.getFirstName(), loginUser.getLastName(), loginUser.getUserRole());
+        return new ResponseEntity<>(loginResponse, jwtHeader, HttpStatus.OK);
+    }
+
+
+
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/find/{email}")
@@ -35,10 +64,13 @@ public class ServerControllerUser {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @PostMapping("/add")
-    public ResponseEntity<Boolean> addUser(@RequestBody UserDTO userDTO) {
+    @PostMapping("/register")
+    public ResponseEntity<RegisterResponse> addUser(@RequestBody UserDTO userDTO) {
         userCommandServiceImpl.addUser(userDTO);
-        return ResponseEntity.ok(true);
+        User user = userQuerryServiceImpl.findByEmail(userDTO.email()).get();
+        HttpHeaders jwtHeader = getJwtHeader(user);
+        RegisterResponse registerResponse = new RegisterResponse(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getPhoneNumber(), jwtHeader.getFirst(HttpHeaders.AUTHORIZATION));
+        return new ResponseEntity<>(registerResponse, jwtHeader, HttpStatus.OK);
     }
 
     @ResponseStatus(HttpStatus.OK)
