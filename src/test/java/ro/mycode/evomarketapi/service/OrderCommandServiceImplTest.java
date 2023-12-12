@@ -34,25 +34,9 @@ class OrderCommandServiceImplTest {
     ArgumentCaptor<Order> orderArgumentCaptor;
     Mapper mapper = new Mapper();
 
-    @Test
-    void addOrder() {
-
-        OrderDTO orderDTO = OrderDTO.builder().ammount(100L).shippingAddress("Shipping Address").orderAddress("Order Address").orderEmail("denis@yahoo.com").orderPhone("1234567890").orderStatus("Pending").build();
-        orderCommandService.addOrder(orderDTO);
-        doReturn(Optional.of(mapper.convertOrdetDTOtoOrder(orderDTO))).when(orderRepo).findById(1L);
-        assertEquals("Shipping Address", orderRepo.findById(1L).get().getShippingAddress());
 
 
-    }
 
-    @Test
-    void addOrderException() {
-        OrderDTO orderDTO = OrderDTO.builder().id(1L).ammount(100L).shippingAddress("Shipping Address").orderAddress("Order Address").orderEmail("denis@yahoo.com").orderPhone("1234567890").orderStatus("Pending").build();
-        doReturn(Optional.of(mapper.convertOrdetDTOtoOrder(orderDTO))).when(orderRepo).findById(orderDTO.id());
-        assertThrows(OrderAlreadyExistException.class, () -> orderCommandService.addOrder(orderDTO));
-
-
-    }
 
     @Test
     void updateOrder() {

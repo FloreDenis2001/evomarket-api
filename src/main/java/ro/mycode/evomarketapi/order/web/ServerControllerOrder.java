@@ -39,7 +39,7 @@ public class ServerControllerOrder {
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/add")
     public ResponseEntity<OrderDTO> addOrder(@RequestBody OrderDTO order) {
-        orderCommandServiceImpl.addOrder(order);
+//        orderCommandServiceImpl.addOrder(order);
         return ResponseEntity.ok(order);
     }
 

@@ -5,9 +5,17 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import ro.mycode.evomarketapi.exceptions.OrderAlreadyExistException;
 import ro.mycode.evomarketapi.exceptions.OrderNotFoundException;
+import ro.mycode.evomarketapi.exceptions.UserNotFound;
+import ro.mycode.evomarketapi.order.dto.CreateOrderRequest;
 import ro.mycode.evomarketapi.order.dto.OrderDTO;
 import ro.mycode.evomarketapi.order.models.Order;
 import ro.mycode.evomarketapi.order.repo.OrderRepo;
+import ro.mycode.evomarketapi.orderdetails.models.OrderDetails;
+import ro.mycode.evomarketapi.orderdetails.repo.OrderDetailsRepo;
+import ro.mycode.evomarketapi.product.repo.ProductRepo;
+import ro.mycode.evomarketapi.user.models.User;
+import ro.mycode.evomarketapi.user.repo.UserRepo;
+import ro.mycode.evomarketapi.utils.Mapper;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -17,32 +25,59 @@ import java.util.Optional;
 public class OrderCommandServiceImpl implements OrderCommandService {
 
     OrderRepo orderRepo;
+    UserRepo userRepo;
+
+    OrderDetailsRepo orderDetailsRepo;
 
 
-    public OrderCommandServiceImpl(OrderRepo orderRepo) {
+
+    public OrderCommandServiceImpl(OrderRepo orderRepo, UserRepo userRepo) {
         this.orderRepo = orderRepo;
+        this.userRepo = userRepo;
     }
 
     @Override
-    public void addOrder(OrderDTO orderDTO) {
+    public void addOrder(CreateOrderRequest createOrderRequest) {
 
-        Optional<Order> orderOptional = orderRepo.findById(orderDTO.id());
+        User user = getUserForOrder(createOrderRequest);
 
-        if (orderOptional.isPresent()) {
-            throw new OrderAlreadyExistException();
-        } else {
-            Order orderAdded = new Order();
-            orderAdded.setUserId(orderDTO.userId());
-            orderAdded.setOrderDetailsSet(orderDTO.orderDetailsSet());
-            orderAdded.setOrderDate(LocalDateTime.now());
-            orderAdded.setOrderStatus(orderDTO.orderStatus());
-            orderAdded.setOrderPhone(orderDTO.orderPhone());
-            orderAdded.setOrderEmail(orderDTO.orderEmail());
-            orderAdded.setOrderAddress(orderDTO.orderAddress());
-            orderAdded.setShippingAddress(orderDTO.shippingAddress());
-            orderAdded.setAmmount(orderDTO.ammount());
+        Order order=createOrderForUser(user,createOrderRequest);
+        orderRepo.save(order);
 
-            orderRepo.saveAndFlush(orderAdded);
+        createAllOrderDetailsForOrder(order,createOrderRequest);
+    }
+    private void createAllOrderDetailsForOrder(Order order, CreateOrderRequest createOrderRequest) {
+        createOrderRequest.getProducts().forEach(productBagDTO -> {
+            OrderDetails orderDetails = OrderDetails.builder()
+                    .order(order)
+                    .product(Mapper.covertProductDTOtoProduct(productBagDTO.getProduct()))
+                    .quantity(productBagDTO.getQuantity())
+                    .price(productBagDTO.getProduct().getPrice() * productBagDTO.getQuantity())
+                    .SKU(productBagDTO.getProduct().getSKU())
+                    .build();
+            orderDetailsRepo.save(orderDetails);
+        });
+    }
+
+    private Order createOrderForUser(User user, CreateOrderRequest createOrderRequest){
+        Order order = Order.builder()
+                .userId(user.getId())
+                .orderDate(LocalDateTime.now())
+                .orderStatus("pending")
+                .orderEmail(user.getEmail())
+                .ammount(createOrderRequest.getProducts().stream().mapToLong(productBagDTO -> productBagDTO.getProduct().getPrice() * productBagDTO.getQuantity()).sum())
+                .build();
+
+        return order;
+
+    }
+
+    private User getUserForOrder(CreateOrderRequest createOrderRequest){
+        User user = userRepo.findByEmail(createOrderRequest.getEmail()).get();
+        if(user!=null){
+            return user;
+        }else {
+            throw new UserNotFound();
         }
     }
 
@@ -75,6 +110,8 @@ public class OrderCommandServiceImpl implements OrderCommandService {
             throw new OrderNotFoundException();
         }
     }
+
+
 
 
 }

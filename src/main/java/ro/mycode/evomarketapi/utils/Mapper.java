@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 
 public class Mapper {
 
-    public Product covertProductDTOtoProduct(ProductDTO productdTO) {
+    public static Product covertProductDTOtoProduct(ProductDTO productdTO) {
         Product product = new Product();
         product.setName(productdTO.getName());
         product.setDescription(productdTO.getDescription());
