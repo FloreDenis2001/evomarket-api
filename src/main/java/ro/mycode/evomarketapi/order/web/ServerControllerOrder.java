@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ro.mycode.evomarketapi.order.dto.CreateOrderRequest;
 import ro.mycode.evomarketapi.order.dto.OrderDTO;
 import ro.mycode.evomarketapi.order.models.Order;
 import ro.mycode.evomarketapi.order.services.OrderCommandServiceImpl;
@@ -36,11 +37,12 @@ public class ServerControllerOrder {
     }
 
 
-    @ResponseStatus(HttpStatus.OK)
+
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/add")
-    public ResponseEntity<OrderDTO> addOrder(@RequestBody OrderDTO order) {
-//        orderCommandServiceImpl.addOrder(order);
-        return ResponseEntity.ok(order);
+    public ResponseEntity<CreateOrderRequest> addOrder(@RequestBody CreateOrderRequest createOrderRequest) {
+        orderCommandServiceImpl.addOrder(createOrderRequest);
+        return ResponseEntity.ok(createOrderRequest);
     }
 
     @ResponseStatus(HttpStatus.OK)

@@ -1,14 +1,20 @@
 package ro.mycode.evomarketapi.product.dto;
 
+
+import lombok.*;
+
+@Builder
+@Data
+@Getter
+@NoArgsConstructor
+
+@AllArgsConstructor
 public class ProductBagDTO {
 
     private ProductDTO product;
     private int quantity;
 
-    public ProductBagDTO(ProductDTO product, int quantity) {
-        this.product = product;
-        this.quantity = quantity;
-    }
+
 
     public ProductDTO getProduct() {
         return product;

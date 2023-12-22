@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import ro.mycode.evomarketapi.exceptions.OrderAlreadyExistException;
 import ro.mycode.evomarketapi.exceptions.OrderNotFoundException;
+import ro.mycode.evomarketapi.exceptions.ProductNotFoundException;
 import ro.mycode.evomarketapi.exceptions.UserNotFound;
 import ro.mycode.evomarketapi.order.dto.CreateOrderRequest;
 import ro.mycode.evomarketapi.order.dto.OrderDTO;
@@ -12,12 +13,16 @@ import ro.mycode.evomarketapi.order.models.Order;
 import ro.mycode.evomarketapi.order.repo.OrderRepo;
 import ro.mycode.evomarketapi.orderdetails.models.OrderDetails;
 import ro.mycode.evomarketapi.orderdetails.repo.OrderDetailsRepo;
+import ro.mycode.evomarketapi.product.dto.ProductDTO;
+import ro.mycode.evomarketapi.product.models.Product;
 import ro.mycode.evomarketapi.product.repo.ProductRepo;
 import ro.mycode.evomarketapi.user.models.User;
 import ro.mycode.evomarketapi.user.repo.UserRepo;
 import ro.mycode.evomarketapi.utils.Mapper;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,44 +32,61 @@ public class OrderCommandServiceImpl implements OrderCommandService {
     OrderRepo orderRepo;
     UserRepo userRepo;
 
+    ProductRepo productRepo;
+
     OrderDetailsRepo orderDetailsRepo;
 
 
-
-    public OrderCommandServiceImpl(OrderRepo orderRepo, UserRepo userRepo) {
+    public OrderCommandServiceImpl(OrderRepo orderRepo, UserRepo userRepo, OrderDetailsRepo orderDetailsRepo,ProductRepo productRepo) {
         this.orderRepo = orderRepo;
         this.userRepo = userRepo;
+        this.productRepo = productRepo;
+        this.orderDetailsRepo = orderDetailsRepo;
     }
 
     @Override
+    @Transactional
     public void addOrder(CreateOrderRequest createOrderRequest) {
 
         User user = getUserForOrder(createOrderRequest);
 
-        Order order=createOrderForUser(user,createOrderRequest);
-        orderRepo.save(order);
+        Order order = createOrderForUser(user, createOrderRequest);
 
-        createAllOrderDetailsForOrder(order,createOrderRequest);
+        orderRepo.saveAndFlush(order);
+        createAllOrderDetailsForOrder(order, createOrderRequest);
     }
+
     private void createAllOrderDetailsForOrder(Order order, CreateOrderRequest createOrderRequest) {
-        createOrderRequest.getProducts().forEach(productBagDTO -> {
-            OrderDetails orderDetails = OrderDetails.builder()
-                    .order(order)
-                    .product(Mapper.covertProductDTOtoProduct(productBagDTO.getProduct()))
-                    .quantity(productBagDTO.getQuantity())
-                    .price(productBagDTO.getProduct().getPrice() * productBagDTO.getQuantity())
-                    .SKU(productBagDTO.getProduct().getSKU())
-                    .build();
-            orderDetailsRepo.save(orderDetails);
-        });
+        if (createOrderRequest.getProducts().isEmpty()) {
+            throw new ProductNotFoundException();
+        } else {
+            List<OrderDetails> list = new ArrayList<>();
+            createOrderRequest.getProducts().forEach(productBagDTO -> {
+
+                Product product = productRepo.getProductBySku(productBagDTO.getProduct().getSKU()).get();
+                OrderDetails orderDetails = OrderDetails.builder()
+                        .order(order)
+                        .product(product)
+                        .quantity(productBagDTO.getQuantity())
+                        .price(productBagDTO.getProduct().getPrice() * productBagDTO.getQuantity())
+                        .SKU(productBagDTO.getProduct().getSKU())
+                        .build();
+                list.add(orderDetails);
+            });
+
+            orderDetailsRepo.saveAllAndFlush(list);
+        }
     }
 
-    private Order createOrderForUser(User user, CreateOrderRequest createOrderRequest){
+    private Order createOrderForUser(User user, CreateOrderRequest createOrderRequest) {
         Order order = Order.builder()
                 .userId(user.getId())
                 .orderDate(LocalDateTime.now())
                 .orderStatus("pending")
                 .orderEmail(user.getEmail())
+                .orderPhone("0740123456")
+                .orderAddress(createOrderRequest.getOrderAddress())
+                .shippingAddress(createOrderRequest.getShippingAddress())
                 .ammount(createOrderRequest.getProducts().stream().mapToLong(productBagDTO -> productBagDTO.getProduct().getPrice() * productBagDTO.getQuantity()).sum())
                 .build();
 
@@ -72,11 +94,11 @@ public class OrderCommandServiceImpl implements OrderCommandService {
 
     }
 
-    private User getUserForOrder(CreateOrderRequest createOrderRequest){
-        User user = userRepo.findByEmail(createOrderRequest.getEmail()).get();
-        if(user!=null){
+    private User getUserForOrder(CreateOrderRequest createOrderRequest) {
+        User user = userRepo.findById(createOrderRequest.getUserId()).get();
+        if (user != null) {
             return user;
-        }else {
+        } else {
             throw new UserNotFound();
         }
     }
@@ -92,8 +114,6 @@ public class OrderCommandServiceImpl implements OrderCommandService {
             orderUpdated.setOrderStatus(orderDTO.orderStatus());
             orderUpdated.setOrderPhone(orderDTO.orderPhone());
             orderUpdated.setOrderEmail(orderDTO.orderEmail());
-            orderUpdated.setOrderAddress(orderDTO.orderAddress());
-            orderUpdated.setShippingAddress(orderDTO.shippingAddress());
             orderUpdated.setAmmount(orderDTO.ammount());
             orderRepo.saveAndFlush(orderUpdated);
         } else {
@@ -110,8 +130,6 @@ public class OrderCommandServiceImpl implements OrderCommandService {
             throw new OrderNotFoundException();
         }
     }
-
-
 
 
 }

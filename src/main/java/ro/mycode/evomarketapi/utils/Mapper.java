@@ -54,11 +54,11 @@ public class Mapper {
     public Order convertOrdetDTOtoOrder(OrderDTO orderDTO) {
         Order order = new Order();
         order.setAmmount(orderDTO.ammount());
-        order.setOrderAddress(orderDTO.orderAddress());
         order.setOrderDate(LocalDateTime.now());
         order.setOrderEmail(orderDTO.orderEmail());
         order.setOrderPhone(orderDTO.orderPhone());
         order.setOrderStatus(orderDTO.orderStatus());
+        order.setOrderAddress(orderDTO.orderAddress());
         order.setShippingAddress(orderDTO.shippingAddress());
         return order;
     }

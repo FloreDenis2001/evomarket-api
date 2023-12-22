@@ -12,6 +12,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import ro.mycode.evomarketapi.address.Address;
 import ro.mycode.evomarketapi.order.models.Order;
 import ro.mycode.evomarketapi.system.security.UserRole;
 
@@ -58,6 +59,26 @@ public class User implements UserDetails {
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "country", column = @Column(name = "billing_country")),
+            @AttributeOverride(name = "city", column = @Column(name = "billing_city")),
+            @AttributeOverride(name = "street", column = @Column(name = "billing_street")),
+            @AttributeOverride(name = "streetNumber", column = @Column(name = "billing_number")),
+            @AttributeOverride(name = "postalCode", column = @Column(name = "billing_postal_code"))
+    })
+    private Address billingAddress;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "country", column = @Column(name = "shipping_country")),
+            @AttributeOverride(name = "city", column = @Column(name = "shipping_city")),
+            @AttributeOverride(name = "street", column = @Column(name = "shipping_street")),
+            @AttributeOverride(name = "streetNumber", column = @Column(name = "shipping_number")),
+            @AttributeOverride(name = "postalCode", column = @Column(name = "shipping_postal_code"))
+    })
+    private Address shippingAddress;
 
 
 

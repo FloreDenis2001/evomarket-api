@@ -1,39 +1,50 @@
 package ro.mycode.evomarketapi.order.dto;
 
+import lombok.*;
+import ro.mycode.evomarketapi.address.Address;
 import ro.mycode.evomarketapi.product.dto.ProductBagDTO;
 import ro.mycode.evomarketapi.product.dto.ProductDTO;
 
 import java.util.List;
 
+@Builder
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 public class CreateOrderRequest {
 
     private List<ProductBagDTO> products;
-    private String email;
+    private Long userId;
+    private Address shippingAddress;
+    private Address orderAddress;
 
 
-
-
-    public CreateOrderRequest(List<ProductBagDTO> products , String email) {
-        this.email= email;
-        this.products = products;
-    }
 
     public List<ProductBagDTO> getProducts() {
         return products;
     }
 
-    public String getEmail() {
-        return email;
+    public Long getUserId() {
+        return userId;
     }
 
 
+    public Address getShippingAddress() {
+        return shippingAddress;
+    }
+
+    public Address getOrderAddress() {
+        return orderAddress;
+    }
 
     @Override
     public String toString() {
         return "CreateOrderRequest{" +
                 "products=" + products +
-                ", E" +
-                "email=" + email +
+                ", userId=" + userId +
+                ", shippingAddress=" + shippingAddress +
+                ", orderAddress=" + orderAddress +
                 '}';
     }
 }

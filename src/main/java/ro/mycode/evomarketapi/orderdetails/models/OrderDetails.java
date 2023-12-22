@@ -5,9 +5,10 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import ro.mycode.evomarketapi.order.models.Order;
+
 import ro.mycode.evomarketapi.product.models.Product;
 
+import   ro.mycode.evomarketapi.order.models.Order;
 @Table(name = "orderdetails")
 @Entity(name = "OrderDetails")
 @AllArgsConstructor
