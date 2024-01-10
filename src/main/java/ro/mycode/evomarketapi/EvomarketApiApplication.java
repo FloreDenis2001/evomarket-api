@@ -52,6 +52,7 @@ public class EvomarketApiApplication {
                                         ProductRepo productRepo, OrderRepo orderRepo, OrderDetailsRepo orderDetailsRepo,
                                         UserCommandServiceImpl userCommandServiceImpl, UserQuerryServiceImpl userQuerryServiceImpl) {
         return args -> {
+
 //                        User user=new User();
 //                        user.setFirstName("Andrei");
 //                        user.setLastName("Popescu");
